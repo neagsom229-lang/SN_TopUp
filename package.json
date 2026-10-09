@@ -1,0 +1,30 @@
+{
+  "name": "sn-top-up",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/web",
+    "apps/admin",
+    "apps/api",
+    "packages/shared"
+  ],
+  "scripts": {
+    "build:shared": "npm --workspace=@sn-top-up/shared run build",
+    "build:api": "npm --workspace=apps-api run build",
+    "build:web": "npm --workspace=apps-web run build",
+    "build": "npm run build:shared && npm run build:api && npm run build:web",
+    "lint:shared": "npm --workspace=@sn-top-up/shared run lint",
+    "lint:api": "npm --workspace=apps-api run lint",
+    "lint:web": "npm --workspace=apps-web run lint",
+    "lint": "npm run lint:shared && npm run lint:api && npm run lint:web",
+    "test": "npm --workspace=apps-api test",
+    "db:migrate": "dotenv -e apps/api/env.development -- npx prisma migrate deploy --schema apps/api/prisma/schema.prisma",
+    "db:status": "dotenv -e apps/api/env.development -- npx prisma migrate status --schema apps/api/prisma/schema.prisma",
+    "db:seed": "dotenv -e apps/api/env.development -- npm --workspace=apps-api run prisma:seed"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^7.4.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.0.0"
+  }
+}

@@ -1,0 +1,184 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String?
+  phone     String?
+  email     String?  @unique
+  role      String   @default("customer") // customer | admin
+  createdAt DateTime @default(now()) @map("created_at")
+  orders    Order[]
+
+  @@map("users")
+}
+
+model GameCategory {
+  id        String   @id @default(uuid())
+  slug      String   @unique
+  name      String
+  sortOrder Int      @default(0) @map("sort_order")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("game_categories")
+}
+
+model Game {
+  id          String     @id @default(uuid())
+  slug        String     @unique
+  name        String
+  imageUrl    String     @map("image_url")
+  inputFields Json       @map("input_fields")
+  active      Boolean    @default(true)
+  sortOrder   Int        @default(0) @map("sort_order")
+  products    Product[]
+
+  @@map("games")
+}
+
+model Product {
+  id             String   @id @default(uuid())
+  gameId         String   @map("game_id")
+  name           String
+  supplierSku    String   @map("supplier_sku")
+  costPriceCents Int      @map("cost_price_cents")
+  sellPriceCents Int      @map("sell_price_cents")
+  active         Boolean  @default(true)
+  sortOrder      Int      @default(0) @map("sort_order")
+  game           Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  orders         Order[]
+
+  @@map("products")
+}
+
+model Order {
+  id            String        @id @default(uuid())
+  code          String        @unique
+  userId        String?       @map("user_id")
+  productId     String        @map("product_id")
+  playerId      String        @map("player_id")
+  serverId      String?       @map("server_id")
+  amountCents   Int           @map("amount_cents")
+  currency      String        @default("USD")
+  status        String        @default("pending") // pending | paid | processing | delivered | failed | expired | refunded
+  contactPhone  String        @map("contact_phone")
+  contactEmail  String?       @map("contact_email")
+  promoCodeId   String?       @map("promo_code_id")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+
+  user          User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  product       Product       @relation(fields: [productId], references: [id])
+  promoCode     PromoCode?    @relation(fields: [promoCodeId], references: [id])
+  payments      Payment[]
+  fulfillment   Fulfillment?
+  events        OrderEvent[]
+
+  @@index([status, createdAt])
+  @@index([userId])
+  @@index([code])
+  @@map("orders")
+}
+
+model Payment {
+  id           String    @id @default(uuid())
+  orderId      String    @map("order_id")
+  provider     String
+  providerRef  String?   @map("provider_ref")
+  qrString     String?   @map("qr_string")
+  qrMd5        String?   @map("qr_md5")
+  checkoutUrl  String?   @map("checkout_url")
+  amountCents  Int       @map("amount_cents")
+  status       String    @default("pending") // pending | paid | expired | failed
+  paidAt       DateTime? @map("paid_at")
+  expiresAt    DateTime? @map("expires_at")
+  order        Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([providerRef])
+  @@index([qrMd5])
+  @@index([status, expiresAt])
+  @@map("payments")
+}
+
+model Fulfillment {
+  id           String    @id @default(uuid())
+  orderId      String    @unique @map("order_id")
+  supplier     String
+  supplierRef  String?   @map("supplier_ref")
+  status       String    @default("pending") // pending | processing | delivered | failed
+  attempts     Int       @default(0)
+  lastError    String?   @map("last_error")
+  responseJson Json?     @map("response_json")
+  deliveredAt  DateTime? @map("delivered_at")
+  order        Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("fulfillments")
+}
+
+model OrderEvent {
+  id        String   @id @default(uuid())
+  orderId   String   @map("order_id")
+  event     String
+  meta      Json?
+  createdAt DateTime @default(now()) @map("created_at")
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("order_events")
+}
+
+model WebhookEvent {
+  id               String    @id @default(uuid())
+  provider         String
+  eventId          String    @unique @map("event_id")
+  payload          Json
+  signatureValid   Boolean   @map("signature_valid")
+  processedAt      DateTime  @default(now()) @map("processed_at")
+  createdAt        DateTime  @default(now()) @map("created_at")
+
+  @@map("webhook_events")
+}
+
+model PromoCode {
+  id            String    @id @default(uuid())
+  code          String    @unique
+  discountType  String    @map("discount_type") // fixed | percentage
+  discountValue Int       @map("discount_value") // cents or basis points
+  maxUses       Int       @map("max_uses")
+  usedCount     Int       @default(0) @map("used_count")
+  expiresAt     DateTime  @map("expires_at")
+  active        Boolean   @default(true)
+  orders        Order[]
+
+  @@map("promo_codes")
+}
+
+model Wallet {
+  id            String             @id @default(uuid())
+  userId        String             @unique @map("user_id")
+  balanceCents  Int                @default(0) @map("balance_cents")
+  currency      String             @default("USD")
+  updatedAt     DateTime           @updatedAt @map("updated_at")
+  transactions  WalletTransaction[]
+
+  @@map("wallets")
+}
+
+model WalletTransaction {
+  id           String   @id @default(uuid())
+  walletId     String   @map("wallet_id")
+  amountCents  Int      @map("amount_cents")
+  type         String   // credit | debit
+  reference    String?
+  createdAt    DateTime @default(now()) @map("created_at")
+  wallet       Wallet   @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@map("wallet_transactions")
+}
