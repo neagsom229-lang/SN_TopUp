@@ -14,13 +14,18 @@ interface Game {
   slug: string;
   name: string;
   imageUrl: string;
-  inputFields: Array<{ key: string; label: { en: string; km: string }; required: boolean; placeholder?: string }>;
+  inputFields: Array<{
+    key: string;
+    label: { en: string; km: string };
+    required: boolean;
+    placeholder?: string;
+  }>;
   products: Product[];
 }
 
 export function GamePage() {
   const { slug } = useParams();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [playerId, setPlayerId] = useState('');
@@ -98,7 +103,8 @@ export function GamePage() {
     }
   };
 
-  if (isLoading) return <div className="text-center py-20 text-gray-400">Loading game details...</div>;
+  if (isLoading)
+    return <div className="text-center py-20 text-gray-400">Loading game details...</div>;
   if (!game) return <div className="text-center py-20 text-red-400">Game not found</div>;
 
   return (
@@ -107,7 +113,9 @@ export function GamePage() {
         <img src={game.imageUrl} alt={game.name} className="w-24 h-24 rounded-xl object-cover" />
         <div>
           <h1 className="text-3xl font-extrabold mb-2">{game.name}</h1>
-          <p className="text-gray-400 text-sm">Instant Top-Up with Bakong KHQR. Automatic delivery.</p>
+          <p className="text-gray-400 text-sm">
+            Instant Top-Up with Bakong KHQR. Automatic delivery.
+          </p>
         </div>
       </div>
 
@@ -117,7 +125,9 @@ export function GamePage() {
           <h2 className="text-xl font-bold mb-4 text-primary">{t('game.step1')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-1 text-gray-300">{t('game.playerId')}</label>
+              <label className="block text-sm font-medium mb-1 text-gray-300">
+                {t('game.playerId')}
+              </label>
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -131,7 +141,9 @@ export function GamePage() {
             </div>
             {game.inputFields.length > 1 && (
               <div>
-                <label className="block text-sm font-medium mb-1 text-gray-300">{t('game.serverId')}</label>
+                <label className="block text-sm font-medium mb-1 text-gray-300">
+                  {t('game.serverId')}
+                </label>
                 <input
                   type="text"
                   value={serverId}
@@ -190,7 +202,9 @@ export function GamePage() {
           <h2 className="text-xl font-bold mb-4 text-primary">{t('game.step3')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-sm font-medium mb-1 text-gray-300">{t('game.contactPhone')}</label>
+              <label className="block text-sm font-medium mb-1 text-gray-300">
+                {t('game.contactPhone')}
+              </label>
               <input
                 type="text"
                 value={contactPhone}
@@ -201,7 +215,9 @@ export function GamePage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1 text-gray-300">{t('game.promoCode')}</label>
+              <label className="block text-sm font-medium mb-1 text-gray-300">
+                {t('game.promoCode')}
+              </label>
               <input
                 type="text"
                 value={promoCode}

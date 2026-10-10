@@ -12,8 +12,9 @@ export function Button({
   className = '',
   ...props
 }: ButtonProps) {
-  const baseStyles = 'font-bold rounded-xl transition duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
-  
+  const baseStyles =
+    'font-bold rounded-xl transition duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
+
   const variants = {
     primary: 'bg-primary hover:bg-emerald-600 text-gray-950 shadow-lg shadow-primary/20',
     secondary: 'bg-cardBg hover:bg-gray-800 text-white border border-gray-700',
@@ -28,10 +29,7 @@ export function Button({
   };
 
   return (
-    <button
-      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
-      {...props}
-    >
+    <button className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`} {...props}>
       {children}
     </button>
   );

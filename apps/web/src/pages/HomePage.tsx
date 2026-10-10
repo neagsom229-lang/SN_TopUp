@@ -30,7 +30,12 @@ export function HomePage() {
   const filteredGames = games.filter((g) => {
     const matchesSearch = g.name.toLowerCase().includes(search.toLowerCase());
     if (category === 'pc') {
-      return matchesSearch && ['valorant', 'roblox', 'steam-wallet', 'genshin-impact', 'honkai-star-rail'].includes(g.slug);
+      return (
+        matchesSearch &&
+        ['valorant', 'roblox', 'steam-wallet', 'genshin-impact', 'honkai-star-rail'].includes(
+          g.slug,
+        )
+      );
     }
     if (category === 'mobile') {
       return matchesSearch && !['valorant', 'roblox', 'steam-wallet'].includes(g.slug);
@@ -66,7 +71,9 @@ export function HomePage() {
         <button
           onClick={() => setCategory('all')}
           className={`px-5 py-2.5 rounded-xl font-bold transition whitespace-nowrap ${
-            category === 'all' ? 'bg-primary text-gray-950 shadow-lg shadow-primary/20' : 'bg-cardBg text-gray-400 hover:text-white border border-gray-800'
+            category === 'all'
+              ? 'bg-primary text-gray-950 shadow-lg shadow-primary/20'
+              : 'bg-cardBg text-gray-400 hover:text-white border border-gray-800'
           }`}
         >
           🎮 All Games ({games.length})
@@ -74,7 +81,9 @@ export function HomePage() {
         <button
           onClick={() => setCategory('mobile')}
           className={`px-5 py-2.5 rounded-xl font-bold transition whitespace-nowrap ${
-            category === 'mobile' ? 'bg-primary text-gray-950 shadow-lg shadow-primary/20' : 'bg-cardBg text-gray-400 hover:text-white border border-gray-800'
+            category === 'mobile'
+              ? 'bg-primary text-gray-950 shadow-lg shadow-primary/20'
+              : 'bg-cardBg text-gray-400 hover:text-white border border-gray-800'
           }`}
         >
           📱 Mobile Legends & Mobile
@@ -82,15 +91,23 @@ export function HomePage() {
         <button
           onClick={() => setCategory('pc')}
           className={`px-5 py-2.5 rounded-xl font-bold transition whitespace-nowrap ${
-            category === 'pc' ? 'bg-primary text-gray-950 shadow-lg shadow-primary/20' : 'bg-cardBg text-gray-400 hover:text-white border border-gray-800'
+            category === 'pc'
+              ? 'bg-primary text-gray-950 shadow-lg shadow-primary/20'
+              : 'bg-cardBg text-gray-400 hover:text-white border border-gray-800'
           }`}
         >
           💻 PC & Gift Cards
         </button>
       </div>
 
-      {isLoading && <div className="text-center py-20 text-gray-400 text-lg">Loading games catalog...</div>}
-      {error && <div className="text-center py-20 text-red-400 text-lg">Failed to load games. Please check API server.</div>}
+      {isLoading && (
+        <div className="text-center py-20 text-gray-400 text-lg">Loading games catalog...</div>
+      )}
+      {error && (
+        <div className="text-center py-20 text-red-400 text-lg">
+          Failed to load games. Please check API server.
+        </div>
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filteredGames.map((game: Game) => (
@@ -111,7 +128,9 @@ export function HomePage() {
               </div>
             </div>
             <div className="p-5 flex-1 flex flex-col justify-between">
-              <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition line-clamp-1">{game.name}</h3>
+              <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition line-clamp-1">
+                {game.name}
+              </h3>
               <div className="flex items-center justify-between text-xs text-gray-400 font-medium">
                 <span>Top-Up Available</span>
                 <span className="text-primary group-hover:translate-x-1 transition">Select →</span>

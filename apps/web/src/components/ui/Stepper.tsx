@@ -17,16 +17,22 @@ export function Stepper({ steps, currentStep }: StepperProps) {
                   isCompleted
                     ? 'bg-primary text-gray-950 shadow-lg shadow-primary/20'
                     : isCurrent
-                    ? 'bg-accent text-white ring-4 ring-accent/20'
-                    : 'bg-gray-800 text-gray-400'
+                      ? 'bg-accent text-white ring-4 ring-accent/20'
+                      : 'bg-gray-800 text-gray-400'
                 }`}
               >
                 {isCompleted ? '✓' : idx + 1}
               </div>
-              <span className={`text-xs mt-2 font-medium ${isCurrent ? 'text-white' : 'text-gray-400'}`}>{step}</span>
+              <span
+                className={`text-xs mt-2 font-medium ${isCurrent ? 'text-white' : 'text-gray-400'}`}
+              >
+                {step}
+              </span>
             </div>
             {idx < steps.length - 1 && (
-              <div className={`flex-1 h-1 mx-2 transition ${isCompleted ? 'bg-primary' : 'bg-gray-800'}`} />
+              <div
+                className={`flex-1 h-1 mx-2 transition ${isCompleted ? 'bg-primary' : 'bg-gray-800'}`}
+              />
             )}
           </div>
         );
