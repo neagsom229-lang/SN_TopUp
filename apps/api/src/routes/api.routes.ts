@@ -1,12 +1,16 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { prisma } from '../app.js';
 import { orderService } from '../services/order.service.js';
 import { mockPaymentProvider } from '../services/mock.payment.js';
 import { mockSupplier } from '../services/mock.supplier.js';
 import { env } from '../env.js';
 import { z } from 'zod';
+import { rateLimiter } from '../middleware/rate-limit.middleware.js';
 
 export const apiRouter = Router();
+
+// Rate limit sensitive endpoints
+const sensitiveLimiter = rateLimiter(60000, 30);
 
 // GET /games
 apiRouter.get('/games', async (req: Request, res: Response, next) => {
@@ -58,7 +62,7 @@ const createOrderSchema = z.object({
   promoCode: z.string().optional(),
 });
 
-apiRouter.post('/orders', async (req: Request, res: Response, next) => {
+apiRouter.post('/orders', sensitiveLimiter, async (req: Request, res: Response, next) => {
   try {
     const data = createOrderSchema.parse(req.body);
     const order = await orderService.createOrder(data);
@@ -114,7 +118,7 @@ apiRouter.post('/promo/validate', async (req: Request, res: Response, next) => {
 });
 
 // POST /players/check
-apiRouter.post('/players/check', async (req: Request, res: Response, next) => {
+apiRouter.post('/players/check', sensitiveLimiter, async (req: Request, res: Response, next) => {
   try {
     const { gameSlug, playerId, serverId } = req.body;
     const result = await mockSupplier.checkPlayer(gameSlug, playerId, serverId);
@@ -128,7 +132,7 @@ apiRouter.post('/players/check', async (req: Request, res: Response, next) => {
 });
 
 // POST /webhooks/khqr
-apiRouter.post('/webhooks/khqr', async (req: Request, res: Response, next) => {
+apiRouter.post('/webhooks/khqr', sensitiveLimiter, async (req: Request, res: Response, next) => {
   try {
     const rawBody = req.body; // Needs express.raw or handled carefully
     const parsed = await mockPaymentProvider.verifyWebhook(rawBody, req.headers as any);
@@ -215,4 +219,52 @@ apiRouter.get('/dev/checkout/:ref', async (req: Request, res: Response) => {
       </body>
     </html>
   `);
+});
+
+// Admin middleware helper
+async function requireAdmin(req: Request, res: Response, next: NextFunction) {
+  const adminEmail = req.headers['x-admin-email'] || 'admin@sntopup.com';
+  const user = await prisma.user.findUnique({ where: { email: String(adminEmail) } });
+  if (!user || user.role !== 'admin') {
+    return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Admin access required' } });
+  }
+  (req as any).adminUser = user;
+  next();
+}
+
+// GET /admin/metrics
+apiRouter.get('/admin/metrics', requireAdmin, async (req: Request, res: Response, next) => {
+  try {
+    const totalOrders = await prisma.order.count();
+    const deliveredOrders = await prisma.order.count({ where: { status: 'delivered' } });
+    const totalRevenueResult = await prisma.order.aggregate({
+      where: { status: 'delivered' },
+      _sum: { amountCents: true },
+    });
+    const totalRevenueCents = totalRevenueResult._sum.amountCents || 0;
+
+    res.json({
+      metrics: {
+        totalOrders,
+        deliveredOrders,
+        totalRevenueCents,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /admin/orders
+apiRouter.get('/admin/orders', requireAdmin, async (req: Request, res: Response, next) => {
+  try {
+    const orders = await prisma.order.findMany({
+      include: { product: true, payments: true, fulfillment: true },
+      orderBy: { createdAt: 'desc' },
+      take: 50,
+    });
+    res.json({ orders });
+  } catch (err) {
+    next(err);
+  }
 });
