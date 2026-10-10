@@ -6,6 +6,7 @@ import { mockSupplier } from '../services/mock.supplier.js';
 import { env } from '../env.js';
 import { z } from 'zod';
 import { rateLimiter } from '../middleware/rate-limit.middleware.js';
+import { cacheService } from '../services/cache.service.js';
 
 export const apiRouter = Router();
 
@@ -34,8 +35,16 @@ apiRouter.get('/games', async (req: Request, res: Response, next) => {
 // GET /games/:slug
 apiRouter.get('/games/:slug', async (req: Request, res: Response, next) => {
   try {
+    const slug = req.params.slug;
+    const cacheKey = `game_${slug}`;
+    const cached = cacheService.get(cacheKey);
+    if (cached) {
+      res.setHeader('Cache-Control', 'public, max-age=30, stale-while-revalidate=120');
+      return res.json(cached);
+    }
+
     const game = await prisma.game.findUnique({
-      where: { slug: req.params.slug },
+      where: { slug },
       include: {
         products: {
           where: { active: true },
@@ -46,7 +55,32 @@ apiRouter.get('/games/:slug', async (req: Request, res: Response, next) => {
     if (!game) {
       return res.status(404).json({ error: { code: 'NOT_FOUND', message: 'Game not found' } });
     }
-    res.json({ game });
+
+    const productsWithUnitPrice = game.products.map((p) => {
+      let unitPriceCents = null;
+      if (p.unitAmount && p.unitAmount > 0) {
+        unitPriceCents = Math.round((p.sellPriceCents / p.unitAmount) * 100) / 100;
+      }
+      return { ...p, unitPriceCents };
+    });
+
+    const grouped = {
+      currency: productsWithUnitPrice.filter((p) => p.packageType === 'currency'),
+      pass: productsWithUnitPrice.filter((p) => p.packageType === 'pass'),
+      bundle: productsWithUnitPrice.filter((p) => p.packageType === 'bundle'),
+    };
+
+    const responseData = {
+      game: {
+        ...game,
+        products: productsWithUnitPrice,
+        groupedProducts: grouped,
+      },
+    };
+
+    cacheService.set(cacheKey, responseData, 60);
+    res.setHeader('Cache-Control', 'public, max-age=30, stale-while-revalidate=120');
+    res.json(responseData);
   } catch (err) {
     next(err);
   }
@@ -132,7 +166,7 @@ apiRouter.post('/players/check', sensitiveLimiter, async (req: Request, res: Res
 });
 
 // POST /webhooks/khqr
-apiRouter.post('/webhooks/khqr', sensitiveLimiter, async (req: Request, res: Response, next) => {
+apiRouter.post('/webhooks/khqr', async (req: Request, res: Response, next) => {
   try {
     const rawBody = req.body; // Needs express.raw or handled carefully
     const parsed = await mockPaymentProvider.verifyWebhook(rawBody, req.headers as any);

@@ -20,13 +20,15 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md}\" --ignore-path .gitignore",
     "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\" --ignore-path .gitignore",
     "test": "npm --workspace=apps-api test",
-    "test:ci": "npm test && npm run db:verify-rls",
+    "test:ci": "npm test && npm run db:verify-rls && npm run db:verify-catalog",
     "db:migrate:deploy": "dotenv -e apps/api/.env -- npx prisma migrate deploy --schema apps/api/prisma/schema.prisma",
     "db:status": "dotenv -e apps/api/.env -- npx prisma migrate status --schema apps/api/prisma/schema.prisma",
     "db:seed": "dotenv -e apps/api/.env -- npm --workspace=apps-api run prisma:seed",
-    "db:verify-rls": "dotenv -e apps/api/.env -- npx tsx apps/api/src/verify-rls.ts"
+    "db:verify-rls": "dotenv -e apps/api/.env -- npx tsx apps/api/src/verify-rls.ts",
+    "db:verify-catalog": "dotenv -e apps/api/.env -- npx tsx apps/api/scripts/verify-catalog.ts"
   },
   "devDependencies": {
+    "@playwright/test": "^1.42.1",
     "@typescript-eslint/eslint-plugin": "^8.71.1",
     "@typescript-eslint/parser": "^8.71.1",
     "concurrently": "^8.2.2",
