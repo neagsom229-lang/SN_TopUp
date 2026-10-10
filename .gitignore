@@ -39,3 +39,6 @@ Thumbs.db
 prisma/migrations/sqlite/
 *.db
 *.db-journal
+
+test-results/
+playwright-report/
