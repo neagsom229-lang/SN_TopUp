@@ -13,18 +13,24 @@
     "build:api": "npm --workspace=apps-api run build",
     "build:web": "npm --workspace=apps-web run build",
     "build": "npm run build:shared && npm run build:api && npm run build:web",
-    "lint:shared": "npm --workspace=@sn-top-up/shared run lint",
-    "lint:api": "npm --workspace=apps-api run lint",
-    "lint:web": "npm --workspace=apps-web run lint",
-    "lint": "npm run lint:shared && npm run lint:api && npm run lint:web",
+    "lint": "npm run lint --workspaces --if-present",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md}\" --ignore-path .gitignore",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\" --ignore-path .gitignore",
     "test": "npm --workspace=apps-api test",
-    "db:migrate": "dotenv -e apps/api/env.development -- npx prisma migrate deploy --schema apps/api/prisma/schema.prisma",
-    "db:status": "dotenv -e apps/api/env.development -- npx prisma migrate status --schema apps/api/prisma/schema.prisma",
-    "db:seed": "dotenv -e apps/api/env.development -- npm --workspace=apps-api run prisma:seed"
+    "db:migrate": "dotenv -e apps/api/.env -- npx prisma migrate deploy --schema apps/api/prisma/schema.prisma",
+    "db:status": "dotenv -e apps/api/.env -- npx prisma migrate status --schema apps/api/prisma/schema.prisma",
+    "db:seed": "dotenv -e apps/api/.env -- npm --workspace=apps-api run prisma:seed"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.71.1",
+    "@typescript-eslint/parser": "^8.71.1",
     "dotenv-cli": "^7.4.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "husky": "^9.0.0",
-    "lint-staged": "^15.0.0"
+    "lint-staged": "^15.0.0",
+    "prettier": "^3.2.5"
   }
 }
