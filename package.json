@@ -17,9 +17,11 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md}\" --ignore-path .gitignore",
     "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\" --ignore-path .gitignore",
     "test": "npm --workspace=apps-api test",
+    "test:ci": "npm test && npm run db:verify-rls",
     "db:migrate": "dotenv -e apps/api/.env -- npx prisma migrate deploy --schema apps/api/prisma/schema.prisma",
     "db:status": "dotenv -e apps/api/.env -- npx prisma migrate status --schema apps/api/prisma/schema.prisma",
-    "db:seed": "dotenv -e apps/api/.env -- npm --workspace=apps-api run prisma:seed"
+    "db:seed": "dotenv -e apps/api/.env -- npm --workspace=apps-api run prisma:seed",
+    "db:verify-rls": "dotenv -e apps/api/.env -- npx tsx apps/api/src/verify-rls.ts"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.71.1",

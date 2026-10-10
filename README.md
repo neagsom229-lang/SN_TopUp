@@ -36,11 +36,12 @@ graph TD
 
 3. **Database Migration & Seeding**
 
+   > **Supabase Deployment Note**: Supabase migrations must run **only** via `prisma migrate deploy`. Never use `prisma migrate resolve --applied` unless the SQL migration has been verified and executed directly in the target database.
+
    ```bash
-   cd apps/api
-   npm run prisma:generate
-   npm run prisma:migrate
-   npm run prisma:seed
+   npm run db:migrate
+   npm run db:seed
+   npm run db:verify-rls
    ```
 
 4. **Run Development Servers**

@@ -11,6 +11,7 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate deploy",
     "prisma:seed": "tsx prisma/seed.ts",
+    "verify-rls": "tsx src/verify-rls.ts",
     "test": "cross-env NODE_ENV=test vitest run"
   },
   "dependencies": {
