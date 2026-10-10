@@ -22,17 +22,20 @@ graph TD
 ## 🚀 Quick Start
 
 1. **Clone & Install Dependencies**
+
    ```bash
    npm install
    ```
 
 2. **Configure Environment Variables**
    Copy `.env.example` to `apps/api/.env` and fill in your Supabase & KHQR credentials:
+
    ```bash
    cp .env.example apps/api/.env
    ```
 
 3. **Database Migration & Seeding**
+
    ```bash
    cd apps/api
    npm run prisma:generate
@@ -48,18 +51,19 @@ graph TD
 
 ## ⚙️ Environment Variables Table
 
-| Variable | Description | Default / Example |
-| :--- | :--- | :--- |
-| `PORT` | API server port | `4000` |
-| `DATABASE_URL` | Supabase pooled connection string (port 6543) | `postgresql://...:6543/postgres?pgbouncer=true` |
-| `DIRECT_URL` | Supabase direct connection string (port 5432) | `postgresql://...:5432/postgres` |
-| `SUPABASE_URL` | Supabase project URL | `https://jihvmgdtwmmivnahedkr.supabase.co` |
-| `KHQR_RBK_TOKEN` | KHQR gateway auth token | `your-khqr-rbk-token` |
-| `KHQR_WEBHOOK_SECRET` | KHQR webhook signing secret | `your-khqr-webhook-secret` |
+| Variable              | Description                                   | Default / Example                               |
+| :-------------------- | :-------------------------------------------- | :---------------------------------------------- |
+| `PORT`                | API server port                               | `4000`                                          |
+| `DATABASE_URL`        | Supabase pooled connection string (port 6543) | `postgresql://...:6543/postgres?pgbouncer=true` |
+| `DIRECT_URL`          | Supabase direct connection string (port 5432) | `postgresql://...:5432/postgres`                |
+| `SUPABASE_URL`        | Supabase project URL                          | `https://jihvmgdtwmmivnahedkr.supabase.co`      |
+| `KHQR_RBK_TOKEN`      | KHQR gateway auth token                       | `your-khqr-rbk-token`                           |
+| `KHQR_WEBHOOK_SECRET` | KHQR webhook signing secret                   | `your-khqr-webhook-secret`                      |
 
 ---
 
 ## 📦 Monorepo Structure
+
 - `apps/web`: Customer React storefront (Tailwind, i18n English & Khmer).
 - `apps/api`: Node.js Express TypeScript API, Prisma ORM, Zod validation, Pino logs.
 - `packages/shared`: Shared TypeScript types and constants.
