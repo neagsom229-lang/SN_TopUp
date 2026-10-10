@@ -57,11 +57,11 @@ apiRouter.get('/games/:slug', async (req: Request, res: Response, next) => {
     }
 
     const productsWithUnitPrice = game.products.map((p) => {
-      let unitPriceCents = null;
+      let unitPriceMicros = null;
       if (p.unitAmount && p.unitAmount > 0) {
-        unitPriceCents = Math.round((p.sellPriceCents / p.unitAmount) * 100) / 100;
+        unitPriceMicros = Math.round((p.sellPriceCents * 10000) / p.unitAmount);
       }
-      return { ...p, unitPriceCents };
+      return { ...p, unitPriceMicros };
     });
 
     const grouped = {

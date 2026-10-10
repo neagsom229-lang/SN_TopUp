@@ -314,7 +314,9 @@ const gamesData: SeedGame[] = [
       { name: '$20 Steam Gift Card', supplierSku: 'STEAM_20', costPriceCents: 1900, sellPriceCents: 2000, packageType: 'currency', badge: 'best_value', unitAmount: 20, unitLabel: 'USD', groupLabel: 'Gift Cards', sortOrder: 3 },
       { name: '$50 Steam Gift Card', supplierSku: 'STEAM_50', costPriceCents: 4750, sellPriceCents: 5000, packageType: 'currency', badge: null, unitAmount: 50, unitLabel: 'USD', groupLabel: 'Gift Cards', sortOrder: 4 },
       { name: '$100 Steam Gift Card', supplierSku: 'STEAM_100', costPriceCents: 9500, sellPriceCents: 10000, packageType: 'currency', badge: null, unitAmount: 100, unitLabel: 'USD', groupLabel: 'Gift Cards', sortOrder: 5 },
-      { name: 'Summer Sale Bundle (DEMO)', supplierSku: 'STEAM_BUNDLE_SUMMER', costPriceCents: 2500, sellPriceCents: 2699, packageType: 'bundle', badge: null, groupLabel: 'Bundles', sortOrder: 6 },
+      { name: '$200 Steam Gift Card (DEMO)', supplierSku: 'STEAM_200', costPriceCents: 19000, sellPriceCents: 20000, packageType: 'currency', badge: null, unitAmount: 200, unitLabel: 'USD', groupLabel: 'Gift Cards', sortOrder: 6 },
+      { name: 'Summer Sale Bundle (DEMO)', supplierSku: 'STEAM_BUNDLE_SUMMER', costPriceCents: 2500, sellPriceCents: 2699, packageType: 'bundle', badge: null, groupLabel: 'Bundles', sortOrder: 7 },
+      { name: 'Indie Game Pack (DEMO)', supplierSku: 'STEAM_BUNDLE_INDIE', costPriceCents: 1500, sellPriceCents: 1699, packageType: 'bundle', badge: null, groupLabel: 'Bundles', sortOrder: 8 },
     ]
   },
   {
@@ -331,8 +333,10 @@ const gamesData: SeedGame[] = [
       { name: '1050 FC Points', supplierSku: 'FC_1050', costPriceCents: 900, sellPriceCents: 999, packageType: 'currency', badge: 'best_value', unitAmount: 1050, unitLabel: 'Points', groupLabel: 'Points', sortOrder: 3 },
       { name: '2200 FC Points', supplierSku: 'FC_2200', costPriceCents: 1800, sellPriceCents: 1999, packageType: 'currency', badge: null, unitAmount: 2200, unitLabel: 'Points', groupLabel: 'Points', sortOrder: 4 },
       { name: '4600 FC Points', supplierSku: 'FC_4600', costPriceCents: 3600, sellPriceCents: 3999, packageType: 'currency', badge: null, unitAmount: 4600, unitLabel: 'Points', groupLabel: 'Points', sortOrder: 5 },
-      { name: 'Star Pass', supplierSku: 'FC_PASS', costPriceCents: 900, sellPriceCents: 999, packageType: 'pass', badge: null, groupLabel: 'Pass', sortOrder: 6 },
-      { name: 'Ultimate Team Pack (DEMO)', supplierSku: 'FC_BUNDLE', costPriceCents: 1500, sellPriceCents: 1799, packageType: 'bundle', badge: null, groupLabel: 'Bundles', sortOrder: 7 },
+      { name: '10500 FC Points (DEMO)', supplierSku: 'FC_10500', costPriceCents: 8500, sellPriceCents: 8999, packageType: 'currency', badge: 'hot', unitAmount: 10500, unitLabel: 'Points', groupLabel: 'Points', sortOrder: 6 },
+      { name: 'Star Pass', supplierSku: 'FC_PASS', costPriceCents: 900, sellPriceCents: 999, packageType: 'pass', badge: null, groupLabel: 'Pass', sortOrder: 7 },
+      { name: 'Star Pass Plus (DEMO)', supplierSku: 'FC_PASS_PLUS', costPriceCents: 1500, sellPriceCents: 1699, packageType: 'pass', badge: null, groupLabel: 'Pass', sortOrder: 8 },
+      { name: 'Ultimate Team Pack (DEMO)', supplierSku: 'FC_BUNDLE', costPriceCents: 1500, sellPriceCents: 1799, packageType: 'bundle', badge: null, groupLabel: 'Bundles', sortOrder: 9 },
     ]
   },
   {
@@ -350,8 +354,10 @@ const gamesData: SeedGame[] = [
       { name: '680 Nyan Berry', supplierSku: 'RO_680', costPriceCents: 980, sellPriceCents: 1049, packageType: 'currency', badge: 'best_value', unitAmount: 680, unitLabel: 'Berries', groupLabel: 'Berries', sortOrder: 3 },
       { name: '1280 Nyan Berry', supplierSku: 'RO_1280', costPriceCents: 1800, sellPriceCents: 1999, packageType: 'currency', badge: null, unitAmount: 1280, unitLabel: 'Berries', groupLabel: 'Berries', sortOrder: 4 },
       { name: '3280 Nyan Berry', supplierSku: 'RO_3280', costPriceCents: 4600, sellPriceCents: 4999, packageType: 'currency', badge: null, unitAmount: 3280, unitLabel: 'Berries', groupLabel: 'Berries', sortOrder: 5 },
-      { name: 'Nyan Pass', supplierSku: 'RO_PASS', costPriceCents: 900, sellPriceCents: 999, packageType: 'pass', badge: null, groupLabel: 'Pass', sortOrder: 6 },
-      { name: 'Valhalla Chest Pack (DEMO)', supplierSku: 'RO_BUNDLE', costPriceCents: 1500, sellPriceCents: 1799, packageType: 'bundle', badge: null, groupLabel: 'Bundles', sortOrder: 7 },
+      { name: '6480 Nyan Berry (DEMO)', supplierSku: 'RO_6480', costPriceCents: 9000, sellPriceCents: 9999, packageType: 'currency', badge: 'hot', unitAmount: 6480, unitLabel: 'Berries', groupLabel: 'Berries', sortOrder: 6 },
+      { name: 'Nyan Pass', supplierSku: 'RO_PASS', costPriceCents: 900, sellPriceCents: 999, packageType: 'pass', badge: null, groupLabel: 'Pass', sortOrder: 7 },
+      { name: 'VIP Privilege Pass (DEMO)', supplierSku: 'RO_VIP', costPriceCents: 1200, sellPriceCents: 1399, packageType: 'pass', badge: null, groupLabel: 'Pass', sortOrder: 8 },
+      { name: 'Valhalla Chest Pack (DEMO)', supplierSku: 'RO_BUNDLE', costPriceCents: 1500, sellPriceCents: 1799, packageType: 'bundle', badge: null, groupLabel: 'Bundles', sortOrder: 9 },
     ]
   }
 ];

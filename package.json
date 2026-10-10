@@ -28,6 +28,7 @@
     "db:verify-catalog": "dotenv -e apps/api/.env -- npx tsx apps/api/scripts/verify-catalog.ts"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.42.1",
     "@typescript-eslint/eslint-plugin": "^8.71.1",
     "@typescript-eslint/parser": "^8.71.1",

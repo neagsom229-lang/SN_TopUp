@@ -12,7 +12,7 @@ interface Product {
   bonusLabel?: string | null;
   unitAmount?: number | null;
   unitLabel?: string | null;
-  unitPriceCents?: number | null;
+  unitPriceMicros?: number | null;
 }
 
 interface Game {
@@ -267,9 +267,15 @@ export function GamePage() {
               {currentProducts.map((product) => {
                 const priceUSD = (product.sellPriceCents / 100).toFixed(2);
                 const isSelected = selectedProductId === product.id;
-                const unitPriceUSD = product.unitPriceCents
-                  ? (product.unitPriceCents / 100).toFixed(3)
-                  : null;
+                const unitPriceFormatted =
+                  product.unitPriceMicros && product.unitLabel
+                    ? `${new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                        minimumFractionDigits: 4,
+                        maximumFractionDigits: 4,
+                      }).format(product.unitPriceMicros / 1_000_000)} / ${product.unitLabel}`
+                    : null;
 
                 return (
                   <div
@@ -295,10 +301,8 @@ export function GamePage() {
                       )}
                     </div>
                     <div>
-                      {unitPriceUSD && product.unitLabel && (
-                        <div className="text-xs text-gray-400 mb-2">
-                          ${unitPriceUSD} / {product.unitLabel}
-                        </div>
+                      {unitPriceFormatted && (
+                        <div className="text-xs text-gray-400 mb-2">{unitPriceFormatted}</div>
                       )}
                       <div className="text-primary font-mono font-bold text-xl">$ {priceUSD}</div>
                     </div>

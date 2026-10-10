@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 import fs from 'fs';
 import path from 'path';
 
@@ -43,5 +44,22 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
     await page.click('text=Proceed to Checkout');
 
     await expect(page).toHaveURL(/\/checkout\/ORD-/);
+  });
+
+  test('respects prefers-reduced-motion (no tilt transform)', async ({ browser }) => {
+    const context = await browser.newContext({ reducedMotion: 'reduce' });
+    const page = await context.newPage();
+    await page.goto('http://localhost:5173/');
+    const card = page.locator('a[href="/games/mobile-legends"]').first();
+    await card.hover();
+    const transformStyle = await card.evaluate((el) => window.getComputedStyle(el).transform);
+    expect(transformStyle).toBe('none');
+    await context.close();
+  });
+
+  test('accessibility check with axe', async ({ page }) => {
+    await page.goto('http://localhost:5173/');
+    const results = await new AxeBuilder({ page }).analyze();
+    expect(results.violations).toEqual([]);
   });
 });
