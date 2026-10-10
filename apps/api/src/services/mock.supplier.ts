@@ -2,7 +2,11 @@ import { SupplierProvider, PlayerCheckResult, SupplierOrderResult } from './supp
 import crypto from 'crypto';
 
 export class MockSupplier implements SupplierProvider {
-  async checkPlayer(gameSlug: string, playerId: string, serverId?: string): Promise<PlayerCheckResult> {
+  async checkPlayer(
+    gameSlug: string,
+    playerId: string,
+    serverId?: string,
+  ): Promise<PlayerCheckResult> {
     if (!playerId || playerId.length < 3) {
       return { valid: false, error: 'Invalid player ID format' };
     }
@@ -15,12 +19,23 @@ export class MockSupplier implements SupplierProvider {
     };
   }
 
-  async createOrder(supplierSku: string, playerId: string, serverId: string | undefined, internalRef: string): Promise<SupplierOrderResult> {
+  async createOrder(
+    supplierSku: string,
+    playerId: string,
+    serverId: string | undefined,
+    internalRef: string,
+  ): Promise<SupplierOrderResult> {
     const supplierRef = `SUPP_${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
     return {
       supplierRef,
       status: 'delivered',
-      responseJson: { success: true, sku: supplierSku, playerId, serverId, timestamp: new Date().toISOString() },
+      responseJson: {
+        success: true,
+        sku: supplierSku,
+        playerId,
+        serverId,
+        timestamp: new Date().toISOString(),
+      },
     };
   }
 

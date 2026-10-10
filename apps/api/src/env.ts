@@ -6,9 +6,12 @@ dotenv.config();
 if (process.env.NODE_ENV === 'test') {
   process.env.SUPABASE_URL = process.env.SUPABASE_URL || 'https://example.supabase.co';
   process.env.SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || 'test-anon-key';
-  process.env.SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || 'test-service-role-key';
-  process.env.DATABASE_URL = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/postgres';
-  process.env.DIRECT_URL = process.env.DIRECT_URL || 'postgresql://postgres:postgres@localhost:5432/postgres';
+  process.env.SUPABASE_SERVICE_ROLE_KEY =
+    process.env.SUPABASE_SERVICE_ROLE_KEY || 'test-service-role-key';
+  process.env.DATABASE_URL =
+    process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/postgres';
+  process.env.DIRECT_URL =
+    process.env.DIRECT_URL || 'postgresql://postgres:postgres@localhost:5432/postgres';
 }
 
 const envSchema = z.object({
@@ -41,7 +44,10 @@ const envSchema = z.object({
 const parseEnv = () => {
   const result = envSchema.safeParse(process.env);
   if (!result.success) {
-    console.error('❌ Invalid environment variables:', JSON.stringify(result.error.format(), null, 2));
+    console.error(
+      '❌ Invalid environment variables:',
+      JSON.stringify(result.error.format(), null, 2),
+    );
     process.exit(1);
   }
   const data = result.data;

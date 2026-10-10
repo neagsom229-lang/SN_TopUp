@@ -31,7 +31,12 @@ export class OrderService {
       const promo = await prisma.promoCode.findUnique({
         where: { code: data.promoCode },
       });
-      if (promo && promo.active && promo.expiresAt > new Date() && promo.usedCount < promo.maxUses) {
+      if (
+        promo &&
+        promo.active &&
+        promo.expiresAt > new Date() &&
+        promo.usedCount < promo.maxUses
+      ) {
         promoCodeId = promo.id;
         if (promo.discountType === 'percentage') {
           discountCents = Math.round((product.sellPriceCents * promo.discountValue) / 100);
@@ -179,7 +184,7 @@ export class OrderService {
             order.product.supplierSku,
             order.playerId,
             order.serverId || undefined,
-            order.code
+            order.code,
           );
 
           await prisma.$transaction(async (innerTx) => {

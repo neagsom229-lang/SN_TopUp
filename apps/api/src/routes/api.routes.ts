@@ -97,8 +97,15 @@ apiRouter.post('/promo/validate', async (req: Request, res: Response, next) => {
   try {
     const { code } = req.body;
     const promo = await prisma.promoCode.findUnique({ where: { code } });
-    if (!promo || !promo.active || promo.expiresAt < new Date() || promo.usedCount >= promo.maxUses) {
-      return res.status(400).json({ error: { code: 'INVALID_PROMO', message: 'Promo code is invalid or expired' } });
+    if (
+      !promo ||
+      !promo.active ||
+      promo.expiresAt < new Date() ||
+      promo.usedCount >= promo.maxUses
+    ) {
+      return res
+        .status(400)
+        .json({ error: { code: 'INVALID_PROMO', message: 'Promo code is invalid or expired' } });
     }
     res.json({ valid: true, discountType: promo.discountType, discountValue: promo.discountValue });
   } catch (err) {
@@ -126,7 +133,9 @@ apiRouter.post('/webhooks/khqr', async (req: Request, res: Response, next) => {
     const rawBody = req.body; // Needs express.raw or handled carefully
     const parsed = await mockPaymentProvider.verifyWebhook(rawBody, req.headers as any);
     if (!parsed.valid) {
-      return res.status(401).json({ error: { code: 'INVALID_SIGNATURE', message: 'Invalid webhook signature' } });
+      return res
+        .status(401)
+        .json({ error: { code: 'INVALID_SIGNATURE', message: 'Invalid webhook signature' } });
     }
 
     // Replay protection check

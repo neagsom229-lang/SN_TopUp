@@ -1,8 +1,17 @@
-import { PaymentProvider, CreateChargeParams, ChargeResult, PaymentCheckStatus, WebhookParseResult } from './payment.interface.js';
+import {
+  PaymentProvider,
+  CreateChargeParams,
+  ChargeResult,
+  PaymentCheckStatus,
+  WebhookParseResult,
+} from './payment.interface.js';
 import crypto from 'crypto';
 
 export class MockPaymentProvider implements PaymentProvider {
-  private charges = new Map<string, { status: PaymentCheckStatus; amountCents: number; currency: string }>();
+  private charges = new Map<
+    string,
+    { status: PaymentCheckStatus; amountCents: number; currency: string }
+  >();
 
   async createCharge(params: CreateChargeParams): Promise<ChargeResult> {
     const providerRef = `MOCK_REF_${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
@@ -34,7 +43,10 @@ export class MockPaymentProvider implements PaymentProvider {
     return charge ? charge.status : 'unpaid';
   }
 
-  async verifyWebhook(rawBody: Buffer, headers: Record<string, string | undefined>): Promise<WebhookParseResult> {
+  async verifyWebhook(
+    rawBody: Buffer,
+    headers: Record<string, string | undefined>,
+  ): Promise<WebhookParseResult> {
     try {
       const payload = JSON.parse(rawBody.toString('utf8'));
       const providerRef = payload.providerRef;
@@ -43,8 +55,8 @@ export class MockPaymentProvider implements PaymentProvider {
         valid: true,
         eventId: payload.eventId || `EVT_${Date.now()}`,
         providerRef,
-        amountCents: charge ? charge.amountCents : (payload.amountCents || 0),
-        currency: charge ? charge.currency : (payload.currency || 'USD'),
+        amountCents: charge ? charge.amountCents : payload.amountCents || 0,
+        currency: charge ? charge.currency : payload.currency || 'USD',
         status: payload.status || 'paid',
       };
     } catch {

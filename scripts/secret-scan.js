@@ -3,10 +3,16 @@ const { execSync } = require('child_process');
 try {
   let logOutput = '';
   try {
-    logOutput = execSync('git log -p --all', { encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] });
+    logOutput = execSync('git log -p --all', {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'ignore'],
+    });
   } catch {
     // If no commits exist yet, fallback to git status / staged
-    logOutput = execSync('git diff HEAD', { encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] }).toString();
+    logOutput = execSync('git diff HEAD', {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'ignore'],
+    }).toString();
   }
 
   const forbiddenPatterns = [

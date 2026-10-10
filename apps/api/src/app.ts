@@ -17,10 +17,17 @@ export const createApp = () => {
   const app = express();
 
   app.use(helmet());
-  app.use(cors({
-    origin: [env.APP_BASE_URL, env.ADMIN_BASE_URL, 'http://localhost:5173', 'http://localhost:5174'],
-    credentials: true,
-  }));
+  app.use(
+    cors({
+      origin: [
+        env.APP_BASE_URL,
+        env.ADMIN_BASE_URL,
+        'http://localhost:5173',
+        'http://localhost:5174',
+      ],
+      credentials: true,
+    }),
+  );
   app.use(pinoHttp({ logger }));
 
   // Raw body for webhook verification route
@@ -49,8 +56,9 @@ export const createApp = () => {
   // Centralized error handler
   app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     logger.error({ err, reqId: req.id }, 'Unhandled error');
-    const statusCode = err.name === 'ZodError' ? 400 : (err.statusCode || 500);
-    const message = env.NODE_ENV === 'production' && statusCode === 500 ? 'Internal Server Error' : err.message;
+    const statusCode = err.name === 'ZodError' ? 400 : err.statusCode || 500;
+    const message =
+      env.NODE_ENV === 'production' && statusCode === 500 ? 'Internal Server Error' : err.message;
     res.status(statusCode).json({
       error: {
         code: err.code || (err.name === 'ZodError' ? 'VALIDATION_ERROR' : 'INTERNAL_ERROR'),

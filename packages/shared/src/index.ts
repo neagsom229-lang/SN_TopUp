@@ -1,4 +1,5 @@
-export type OrderStatus = 'pending' | 'paid' | 'processing' | 'delivered' | 'failed' | 'expired' | 'refunded';
+export type OrderStatus =
+  'pending' | 'paid' | 'processing' | 'delivered' | 'failed' | 'expired' | 'refunded';
 export type PaymentStatus = 'pending' | 'paid' | 'expired' | 'failed';
 export type FulfillmentStatus = 'pending' | 'processing' | 'delivered' | 'failed';
 export type UserRole = 'customer' | 'admin';

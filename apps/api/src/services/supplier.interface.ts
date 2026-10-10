@@ -13,7 +13,12 @@ export interface SupplierOrderResult {
 
 export interface SupplierProvider {
   checkPlayer(gameSlug: string, playerId: string, serverId?: string): Promise<PlayerCheckResult>;
-  createOrder(supplierSku: string, playerId: string, serverId: string | undefined, internalRef: string): Promise<SupplierOrderResult>;
+  createOrder(
+    supplierSku: string,
+    playerId: string,
+    serverId: string | undefined,
+    internalRef: string,
+  ): Promise<SupplierOrderResult>;
   getStatus(supplierRef: string): Promise<SupplierOrderResult>;
   getBalance(): Promise<{ balanceCents: number; currency: string }>;
 }

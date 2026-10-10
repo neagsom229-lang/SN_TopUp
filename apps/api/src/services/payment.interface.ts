@@ -28,5 +28,8 @@ export interface WebhookParseResult {
 export interface PaymentProvider {
   createCharge(params: CreateChargeParams): Promise<ChargeResult>;
   getStatus(providerRefOrMd5: string): Promise<PaymentCheckStatus>;
-  verifyWebhook(rawBody: Buffer, headers: Record<string, string | undefined>): Promise<WebhookParseResult>;
+  verifyWebhook(
+    rawBody: Buffer,
+    headers: Record<string, string | undefined>,
+  ): Promise<WebhookParseResult>;
 }
