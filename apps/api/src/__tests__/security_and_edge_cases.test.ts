@@ -32,7 +32,12 @@ vi.mock('@prisma/client', () => {
         }
         return null;
       }),
-      create: vi.fn().mockResolvedValue({ id: 'order-uuid', code: 'ORD-TEST', status: 'pending', amountCents: 105 }),
+      create: vi.fn().mockResolvedValue({
+        id: 'order-uuid',
+        code: 'ORD-TEST',
+        status: 'pending',
+        amountCents: 105,
+      }),
       update: vi.fn().mockResolvedValue({ id: 'order-uuid', status: 'processing' }),
     },
     payment: {
@@ -40,7 +45,14 @@ vi.mock('@prisma/client', () => {
         id: 'payment-uuid',
         status: 'pending',
         amountCents: 105,
-        order: { id: 'order-uuid', code: 'ORD-TEST', status: 'pending', productId: 'valid-product-uuid', playerId: '123', product: { supplierSku: 'ML_86' } }
+        order: {
+          id: 'order-uuid',
+          code: 'ORD-TEST',
+          status: 'pending',
+          productId: 'valid-product-uuid',
+          playerId: '123',
+          product: { supplierSku: 'ML_86' },
+        },
       }),
       create: vi.fn().mockResolvedValue({}),
       update: vi.fn().mockResolvedValue({}),
@@ -81,9 +93,7 @@ describe('Security & Edge Cases Test Suite (Mocked DB Environment)', () => {
   const app = createApp();
 
   it('rejects webhook with bad signature or invalid payload', async () => {
-    const res = await request(app)
-      .post('/api/v1/webhooks/khqr')
-      .send({ invalid: true });
+    const res = await request(app).post('/api/v1/webhooks/khqr').send({ invalid: true });
     expect([401, 200, 500]).toContain(res.status);
   });
 
@@ -95,9 +105,7 @@ describe('Security & Edge Cases Test Suite (Mocked DB Environment)', () => {
       amountCents: 105,
       currency: 'USD',
     };
-    const res = await request(app)
-      .post('/api/v1/webhooks/khqr')
-      .send(payload);
+    const res = await request(app).post('/api/v1/webhooks/khqr').send(payload);
     expect(res.status).toBe(200);
     expect(res.body.received).toBe(true);
   });
@@ -110,9 +118,7 @@ describe('Security & Edge Cases Test Suite (Mocked DB Environment)', () => {
       amountCents: 9999, // Mismatch with order amount 105
       currency: 'USD',
     };
-    const res = await request(app)
-      .post('/api/v1/webhooks/khqr')
-      .send(payload);
+    const res = await request(app).post('/api/v1/webhooks/khqr').send(payload);
     expect([200, 400, 401]).toContain(res.status);
   });
 
@@ -129,25 +135,21 @@ describe('Security & Edge Cases Test Suite (Mocked DB Environment)', () => {
   });
 
   it('prevents illegal state machine transitions / invalid product ID', async () => {
-    const res = await request(app)
-      .post('/api/v1/orders')
-      .send({
-        productId: 'invalid-product-id',
-        playerId: '12345',
-        contactPhone: '+85512345678',
-      });
+    const res = await request(app).post('/api/v1/orders').send({
+      productId: 'invalid-product-id',
+      playerId: '12345',
+      contactPhone: '+85512345678',
+    });
     expect([400, 404]).toContain(res.status);
   });
 
   it('performs server-side price recomputation and ignores client amounts', async () => {
-    const res = await request(app)
-      .post('/api/v1/orders')
-      .send({
-        productId: 'valid-product-uuid',
-        playerId: '12345',
-        contactPhone: '+85512345678',
-        amountCents: 1, // Malicious client attempt to pay 1 cent
-      });
+    const res = await request(app).post('/api/v1/orders').send({
+      productId: 'valid-product-uuid',
+      playerId: '12345',
+      contactPhone: '+85512345678',
+      amountCents: 1, // Malicious client attempt to pay 1 cent
+    });
     expect([201, 200, 400]).toContain(res.status);
   });
 });
