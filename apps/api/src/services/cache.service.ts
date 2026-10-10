@@ -15,8 +15,12 @@ class CacheService {
     return item.value;
   }
 
-  del(key: string) {
+  invalidate(key: string) {
     this.store.delete(key);
+  }
+
+  clear() {
+    this.store.clear();
   }
 }
 

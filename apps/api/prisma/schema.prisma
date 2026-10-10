@@ -51,6 +51,12 @@ model Product {
   supplierSku    String   @map("supplier_sku")
   costPriceCents Int      @map("cost_price_cents")
   sellPriceCents Int      @map("sell_price_cents")
+  packageType    String   @default("currency") @map("package_type") // currency | pass | bundle
+  badge          String?  // popular | best_value | hot
+  bonusLabel     String?  @map("bonus_label")
+  unitAmount     Int?     @map("unit_amount")
+  unitLabel      String?  @map("unit_label")
+  groupLabel     String?  @map("group_label")
   active         Boolean  @default(true)
   sortOrder      Int      @default(0) @map("sort_order")
   game           Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)

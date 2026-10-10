@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
+import compression from 'compression';
 import pinoHttp from 'pino-http';
 import pino from 'pino';
 import { env } from './env.js';
@@ -17,6 +18,7 @@ export const createApp = () => {
   const app = express();
 
   app.use(helmet());
+  app.use(compression());
   app.use(
     cors({
       origin: [
@@ -28,7 +30,33 @@ export const createApp = () => {
       credentials: true,
     }),
   );
-  app.use(pinoHttp({ logger }));
+  app.use(
+    pinoHttp({
+      logger,
+      redact: [
+        'req.headers.cookie',
+        'req.headers.authorization',
+        'req.headers["set-cookie"]',
+        'req.headers["x-signature"]',
+        'req.headers["signature"]',
+        'req.headers["x-token"]',
+        'req.headers["token"]',
+        'res.headers["set-cookie"]',
+      ],
+      customProps: (req) => ({
+        requestId: req.id,
+      }),
+      serializers: {
+        req: (req) => ({
+          method: req.method,
+          url: req.url,
+        }),
+        res: (res) => ({
+          status: res.statusCode,
+        }),
+      },
+    }),
+  );
 
   // Raw body for webhook verification route
   app.use('/api/v1/webhooks/khqr', express.raw({ type: 'application/json' }));
@@ -54,18 +82,25 @@ export const createApp = () => {
   });
 
   // Centralized error handler
-  app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-    logger.error({ err, reqId: req.id }, 'Unhandled error');
-    const statusCode = err.name === 'ZodError' ? 400 : err.statusCode || 500;
-    const message =
-      env.NODE_ENV === 'production' && statusCode === 500 ? 'Internal Server Error' : err.message;
-    res.status(statusCode).json({
-      error: {
-        code: err.code || (err.name === 'ZodError' ? 'VALIDATION_ERROR' : 'INTERNAL_ERROR'),
-        message,
-      },
-    });
-  });
+  app.use(
+    (
+      err: Error & { statusCode?: number; code?: string },
+      req: Request,
+      res: Response,
+      _next: NextFunction,
+    ) => {
+      logger.error({ err, reqId: req.id }, 'Unhandled error');
+      const statusCode = err.name === 'ZodError' ? 400 : err.statusCode || 500;
+      const message =
+        env.NODE_ENV === 'production' && statusCode === 500 ? 'Internal Server Error' : err.message;
+      res.status(statusCode).json({
+        error: {
+          code: err.code || (err.name === 'ZodError' ? 'VALIDATION_ERROR' : 'INTERNAL_ERROR'),
+          message,
+        },
+      });
+    },
+  );
 
   return app;
 };
