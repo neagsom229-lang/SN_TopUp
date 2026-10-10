@@ -164,6 +164,17 @@ export function GamePage() {
           {/* Step 1: Player ID */}
           <div className="bg-cardBg p-6 rounded-2xl border border-gray-800">
             <h2 className="text-xl font-bold mb-4 text-primary">{t('game.step1')}</h2>
+            <div className="mb-4 bg-amber-500/10 border border-amber-500/30 text-amber-300 p-4 rounded-xl text-xs flex items-start gap-3">
+              <span className="text-lg">🛡️</span>
+              <div>
+                <div className="font-bold mb-1">Security Notice</div>
+                <div>We only need your Player ID. Never share your password or login codes.</div>
+                <div className="text-gray-400 mt-1">
+                  យើងត្រូវការតែអត្តសញ្ញាណអ្នកលេង (Player ID) របស់អ្នកប៉ុណ្ណោះ។
+                  កុំចែករំលែកពាក្យសម្ងាត់ ឬកូដសម្ងាត់របស់អ្នកឡើយ។
+                </div>
+              </div>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium mb-1 text-gray-300">

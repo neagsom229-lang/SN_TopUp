@@ -221,50 +221,12 @@ apiRouter.get('/dev/checkout/:ref', async (req: Request, res: Response) => {
   `);
 });
 
-// Admin middleware helper
-async function requireAdmin(req: Request, res: Response, next: NextFunction) {
-  const adminEmail = req.headers['x-admin-email'] || 'admin@sntopup.com';
-  const user = await prisma.user.findUnique({ where: { email: String(adminEmail) } });
-  if (!user || user.role !== 'admin') {
-    return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Admin access required' } });
-  }
-  (req as any).adminUser = user;
-  next();
-}
-
-// GET /admin/metrics
-apiRouter.get('/admin/metrics', requireAdmin, async (req: Request, res: Response, next) => {
-  try {
-    const totalOrders = await prisma.order.count();
-    const deliveredOrders = await prisma.order.count({ where: { status: 'delivered' } });
-    const totalRevenueResult = await prisma.order.aggregate({
-      where: { status: 'delivered' },
-      _sum: { amountCents: true },
-    });
-    const totalRevenueCents = totalRevenueResult._sum.amountCents || 0;
-
-    res.json({
-      metrics: {
-        totalOrders,
-        deliveredOrders,
-        totalRevenueCents,
-      },
-    });
-  } catch (err) {
-    next(err);
-  }
-});
-
-// GET /admin/orders
-apiRouter.get('/admin/orders', requireAdmin, async (req: Request, res: Response, next) => {
-  try {
-    const orders = await prisma.order.findMany({
-      include: { product: true, payments: true, fulfillment: true },
-      orderBy: { createdAt: 'desc' },
-      take: 50,
-    });
-    res.json({ orders });
-  } catch (err) {
-    next(err);
-  }
+// Admin endpoints disabled: real Supabase JWT verification middleware not built yet
+apiRouter.all('/admin/*', (_req: Request, res: Response) => {
+  res.status(501).json({
+    error: {
+      code: 'NOT_IMPLEMENTED',
+      message: 'Admin endpoints disabled: real Supabase JWT verification middleware not built yet',
+    },
+  });
 });
