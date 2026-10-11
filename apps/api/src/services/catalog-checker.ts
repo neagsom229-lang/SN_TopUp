@@ -32,7 +32,9 @@ export async function checkCatalogData(
     const minExpected = g.slug === 'clash-of-clans' ? 10 : 8;
 
     if (pCount < minExpected) {
-      console.error(`[FAIL] Game "${g.slug}" has ${pCount} active products (expected >= ${minExpected}).`);
+      console.error(
+        `[FAIL] Game "${g.slug}" has ${pCount} active products (expected >= ${minExpected}).`,
+      );
       hasError = true;
     }
 
@@ -42,7 +44,9 @@ export async function checkCatalogData(
         hasError = true;
       }
       if (p.sellPriceCents <= 0 || p.costPriceCents <= 0) {
-        console.error(`[FAIL] Product "${p.name}" in game "${g.slug}" has invalid price (${p.sellPriceCents} cents).`);
+        console.error(
+          `[FAIL] Product "${p.name}" in game "${g.slug}" has invalid price (${p.sellPriceCents} cents).`,
+        );
         hasError = true;
       }
     }

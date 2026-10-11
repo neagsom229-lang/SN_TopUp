@@ -18,7 +18,11 @@ export function HomePage() {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState<'all' | 'mobile' | 'pc'>('all');
 
-  const { data: games = [], isLoading, error } = useQuery<Game[]>({
+  const {
+    data: games = [],
+    isLoading,
+    error,
+  } = useQuery<Game[]>({
     queryKey: ['games'],
     queryFn: async () => {
       try {
@@ -27,18 +31,74 @@ export function HomePage() {
           const json = await res.json();
           if (json.data && json.data.length > 0) return json.data;
         }
-      } catch (e) {
+      } catch {
         // Fallback for offline E2E
       }
       return [
-        { id: '1', slug: 'mobile-legends', name: 'Mobile Legends: Bang Bang', imageUrl: 'https://via.placeholder.com/150', category: 'mobile', startingPriceCents: 100 },
-        { id: '2', slug: 'pubg-mobile', name: 'PUBG Mobile', imageUrl: 'https://via.placeholder.com/150', category: 'mobile', startingPriceCents: 100 },
-        { id: '3', slug: 'free-fire', name: 'Free Fire', imageUrl: 'https://via.placeholder.com/150', category: 'mobile', startingPriceCents: 100 },
-        { id: '4', slug: 'genshin-impact', name: 'Genshin Impact', imageUrl: 'https://via.placeholder.com/150', category: 'pc', startingPriceCents: 100 },
-        { id: '5', slug: 'valorant', name: 'Valorant', imageUrl: 'https://via.placeholder.com/150', category: 'pc', startingPriceCents: 100 },
-        { id: '6', slug: 'roblox', name: 'Roblox', imageUrl: 'https://via.placeholder.com/150', category: 'pc', startingPriceCents: 100 },
-        { id: '7', slug: 'clash-of-clans', name: 'Clash of Clans', imageUrl: 'https://via.placeholder.com/150', category: 'mobile', startingPriceCents: 100 },
-        { id: '8', slug: 'clash-royale', name: 'Clash Royale', imageUrl: 'https://via.placeholder.com/150', category: 'mobile', startingPriceCents: 100 },
+        {
+          id: '1',
+          slug: 'mobile-legends',
+          name: 'Mobile Legends: Bang Bang',
+          imageUrl: 'https://via.placeholder.com/150',
+          category: 'mobile',
+          startingPriceCents: 100,
+        },
+        {
+          id: '2',
+          slug: 'pubg-mobile',
+          name: 'PUBG Mobile',
+          imageUrl: 'https://via.placeholder.com/150',
+          category: 'mobile',
+          startingPriceCents: 100,
+        },
+        {
+          id: '3',
+          slug: 'free-fire',
+          name: 'Free Fire',
+          imageUrl: 'https://via.placeholder.com/150',
+          category: 'mobile',
+          startingPriceCents: 100,
+        },
+        {
+          id: '4',
+          slug: 'genshin-impact',
+          name: 'Genshin Impact',
+          imageUrl: 'https://via.placeholder.com/150',
+          category: 'pc',
+          startingPriceCents: 100,
+        },
+        {
+          id: '5',
+          slug: 'valorant',
+          name: 'Valorant',
+          imageUrl: 'https://via.placeholder.com/150',
+          category: 'pc',
+          startingPriceCents: 100,
+        },
+        {
+          id: '6',
+          slug: 'roblox',
+          name: 'Roblox',
+          imageUrl: 'https://via.placeholder.com/150',
+          category: 'pc',
+          startingPriceCents: 100,
+        },
+        {
+          id: '7',
+          slug: 'clash-of-clans',
+          name: 'Clash of Clans',
+          imageUrl: 'https://via.placeholder.com/150',
+          category: 'mobile',
+          startingPriceCents: 100,
+        },
+        {
+          id: '8',
+          slug: 'clash-royale',
+          name: 'Clash Royale',
+          imageUrl: 'https://via.placeholder.com/150',
+          category: 'mobile',
+          startingPriceCents: 100,
+        },
       ];
     },
   });
@@ -51,8 +111,13 @@ export function HomePage() {
   const filteredGames = useMemo(() => {
     return games.filter((g) => {
       const matchesSearch = g.name.toLowerCase().includes(search.toLowerCase());
-      if (category === 'mobile') return matchesSearch && g.category.toLowerCase().includes('mobile');
-      if (category === 'pc') return matchesSearch && (g.category.toLowerCase().includes('pc') || g.category.toLowerCase().includes('gift'));
+      if (category === 'mobile')
+        return matchesSearch && g.category.toLowerCase().includes('mobile');
+      if (category === 'pc')
+        return (
+          matchesSearch &&
+          (g.category.toLowerCase().includes('pc') || g.category.toLowerCase().includes('gift'))
+        );
       return matchesSearch;
     });
   }, [games, search, category]);
@@ -209,7 +274,10 @@ function GameCard({
             className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
           />
         </div>
-        <h2 className="font-bold text-sm text-white truncate group-hover:text-primary transition" style={{ color: '#ffffff' }}>
+        <h2
+          className="font-bold text-sm text-white truncate group-hover:text-primary transition"
+          style={{ color: '#ffffff' }}
+        >
           {game.name}
         </h2>
         <div className="text-xs text-gray-300 mt-1" style={{ color: '#cbd5e1' }}>

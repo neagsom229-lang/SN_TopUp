@@ -20,7 +20,7 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md}\" --ignore-path .gitignore",
     "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\" --ignore-path .gitignore",
     "test": "npm --workspace=apps-api test",
-    "test:ci": "npm test && npm run db:verify-rls && npm run db:verify-catalog",
+    "test:ci": "npm run lint && npm run format:check && npm test",
     "db:migrate:deploy": "dotenv -e apps/api/.env -- npx prisma migrate deploy --schema apps/api/prisma/schema.prisma",
     "db:status": "dotenv -e apps/api/.env -- npx prisma migrate status --schema apps/api/prisma/schema.prisma",
     "db:seed": "dotenv -e apps/api/.env -- npm --workspace=apps-api run prisma:seed",

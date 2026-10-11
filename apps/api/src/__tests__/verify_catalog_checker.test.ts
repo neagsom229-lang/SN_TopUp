@@ -8,7 +8,13 @@ describe('Verify Catalog Checker Unit Test', () => {
         slug: 'test-game',
         name: 'Test Game',
         products: [
-          { name: 'P1', packageType: 'currency', sellPriceCents: 100, costPriceCents: 90, active: true },
+          {
+            name: 'P1',
+            packageType: 'currency',
+            sellPriceCents: 100,
+            costPriceCents: 90,
+            active: true,
+          },
         ],
       },
     ];

@@ -12,6 +12,7 @@ export const apiRouter = Router();
 
 // Rate limit sensitive endpoints
 const sensitiveLimiter = rateLimiter(60000, 30);
+const orderLimiter = rateLimiter(60000, 10, true);
 
 // GET /games
 apiRouter.get('/games', async (req: Request, res: Response, next) => {
@@ -96,7 +97,7 @@ const createOrderSchema = z.object({
   promoCode: z.string().optional(),
 });
 
-apiRouter.post('/orders', sensitiveLimiter, async (req: Request, res: Response, next) => {
+apiRouter.post('/orders', orderLimiter, async (req: Request, res: Response, next) => {
   try {
     const data = createOrderSchema.parse(req.body);
     const order = await orderService.createOrder(data);
@@ -264,3 +265,18 @@ apiRouter.all('/admin/*', (_req: Request, res: Response) => {
     },
   });
 });
+
+if (env.NODE_ENV === 'test') {
+  apiRouter.get('/test-zod-error', (_req, _res, next) => {
+    const schema = z.object({ name: z.string() });
+    try {
+      schema.parse({});
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  apiRouter.get('/test-500-error', (_req, _res, next) => {
+    next(new Error('Database connection crashed with secret password'));
+  });
+}

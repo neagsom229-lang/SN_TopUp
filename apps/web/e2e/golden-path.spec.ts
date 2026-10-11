@@ -59,7 +59,7 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
 
   test('axe accessibility: Home (light & dark)', async ({ page }) => {
     await page.goto('http://localhost:5173/');
-    
+
     // Light theme
     await page.evaluate(() => document.documentElement.classList.remove('dark'));
     let results = await new AxeBuilder({ page }).analyze();
@@ -74,7 +74,7 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
   test('axe accessibility: Game Page (light & dark)', async ({ page }) => {
     await page.goto('http://localhost:5173/games/mobile-legends');
     await page.waitForSelector('input[placeholder="e.g. 12345678"]');
-    
+
     // Light theme
     await page.evaluate(() => document.documentElement.classList.remove('dark'));
     let results = await new AxeBuilder({ page }).analyze();
@@ -86,7 +86,9 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
     expect(results.violations).toEqual([]);
   });
 
-  test('checkout features: stepper, countdown, copy, and axe accessibility (light & dark)', async ({ page }) => {
+  test('checkout features: stepper, countdown, copy, and axe accessibility (light & dark)', async ({
+    page,
+  }) => {
     await page.goto('http://localhost:5173/');
     await page.click('a[href="/games/mobile-legends"]');
     await page.waitForSelector('input[placeholder="e.g. 12345678"]');

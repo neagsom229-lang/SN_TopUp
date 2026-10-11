@@ -7,6 +7,7 @@ import pino from 'pino';
 import { env } from './env.js';
 import { PrismaClient } from '@prisma/client';
 import { apiRouter } from './routes/api.routes.js';
+import { ZodError } from 'zod';
 
 export const prisma = new PrismaClient();
 export const logger = pino({
@@ -16,6 +17,17 @@ export const logger = pino({
 
 export const createApp = () => {
   const app = express();
+
+  if (env.TRUST_PROXY) {
+    app.set(
+      'trust proxy',
+      env.TRUST_PROXY === 'true'
+        ? true
+        : isNaN(Number(env.TRUST_PROXY))
+          ? env.TRUST_PROXY
+          : Number(env.TRUST_PROXY),
+    );
+  }
 
   app.use(helmet());
   app.use(compression());
@@ -84,19 +96,27 @@ export const createApp = () => {
   // Centralized error handler
   app.use(
     (
-      err: Error & { statusCode?: number; code?: string },
+      err: Error & { statusCode?: number; code?: string; issues?: any[] },
       req: Request,
       res: Response,
       _next: NextFunction,
     ) => {
+      if (err instanceof ZodError || err.name === 'ZodError' || Array.isArray(err.issues)) {
+        logger.warn({ issues: err.issues }, 'Validation error');
+        return res.status(400).json({
+          error: {
+            code: 'VALIDATION_ERROR',
+            issues: (err.issues || []).map((i: any) => ({ path: i.path, message: i.message })),
+          },
+        });
+      }
+
       logger.error({ err, reqId: req.id }, 'Unhandled error');
-      const statusCode = err.name === 'ZodError' ? 400 : err.statusCode || 500;
-      const message =
-        env.NODE_ENV === 'production' && statusCode === 500 ? 'Internal Server Error' : err.message;
+      const statusCode = err.statusCode || 500;
       res.status(statusCode).json({
         error: {
-          code: err.code || (err.name === 'ZodError' ? 'VALIDATION_ERROR' : 'INTERNAL_ERROR'),
-          message,
+          code: err.code || 'INTERNAL_ERROR',
+          message: statusCode === 500 ? 'Internal Server Error' : err.message,
         },
       });
     },

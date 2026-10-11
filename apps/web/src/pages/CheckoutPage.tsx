@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+/// <reference types="vite/client" />
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -27,6 +28,10 @@ export function CheckoutPage() {
     }, 4000);
   };
 
+  const [mockExpiresAt] = useState(() => new Date(Date.now() + 300000).toISOString());
+
+  const prevStatusRef = useRef<string | undefined>(undefined);
+
   const { data, error } = useQuery({
     queryKey: ['order', code],
     queryFn: async () => {
@@ -35,7 +40,20 @@ export function CheckoutPage() {
       }
       const res = await fetch(`/api/v1/orders/${code}`);
       if (!res.ok) throw new Error('Order not found');
-      return res.json();
+      const json = await res.json();
+      const newStatus = json.order?.status;
+      if (newStatus === 'delivered' && prevStatusRef.current !== 'delivered') {
+        import('canvas-confetti').then((confetti) => {
+          confetti.default({
+            particleCount: 120,
+            spread: 70,
+            origin: { y: 0.6 },
+          });
+        });
+        addToast('Payment successful! Order delivered.', 'success');
+      }
+      prevStatusRef.current = newStatus;
+      return json;
     },
     retry: false,
     refetchInterval: (query) => {
@@ -47,18 +65,26 @@ export function CheckoutPage() {
 
   const isExpired = error || (code && code.includes('EXPIRED'));
 
-  const order = data?.order || (!isExpired ? {
-    code: code || 'ORD-MOCK123',
-    amountCents: 1000,
-    status: 'pending',
-    product: { name: '86 Diamonds - Mobile Legends' },
-    game: { slug: 'mobile-legends' },
-    payments: [{
-      providerRef: 'KHQR_REF_999',
-      expiresAt: new Date(Date.now() + 300000).toISOString(),
-      checkoutUrl: 'http://localhost:4000/api/v1/dev/checkout/MOCK'
-    }]
-  } : null);
+  const order =
+    data?.order ||
+    (!isExpired
+      ? {
+          code: code || 'ORD-MOCK123',
+          amountCents: 1000,
+          status: 'pending',
+          product: { name: '86 Diamonds - Mobile Legends' },
+          game: { slug: 'mobile-legends' },
+          payments: import.meta.env.DEV
+            ? [
+                {
+                  providerRef: 'KHQR_REF_999',
+                  expiresAt: mockExpiresAt,
+                  checkoutUrl: 'http://localhost:4000/api/v1/dev/checkout/MOCK',
+                },
+              ]
+            : [],
+        }
+      : null);
 
   const payment = order?.payments?.[0];
 
@@ -72,10 +98,10 @@ export function CheckoutPage() {
 
       if (remaining === 60) {
         setAnnouncement('60 seconds remaining to complete payment.');
-        addToast('60 seconds remaining!', 'info');
+        queueMicrotask(() => addToast('60 seconds remaining!', 'info'));
       } else if (remaining === 10) {
         setAnnouncement('10 seconds remaining! Payment will expire soon.');
-        addToast('10 seconds remaining!', 'error');
+        queueMicrotask(() => addToast('10 seconds remaining!', 'error'));
       }
 
       if (remaining <= 0) {
@@ -84,20 +110,6 @@ export function CheckoutPage() {
     }, 1000);
     return () => clearInterval(interval);
   }, [payment?.expiresAt]);
-
-  // Confetti on success
-  useEffect(() => {
-    if (order?.status === 'delivered') {
-      import('canvas-confetti').then((confetti) => {
-        confetti.default({
-          particleCount: 120,
-          spread: 70,
-          origin: { y: 0.6 },
-        });
-      });
-      addToast('Payment successful! Order delivered.', 'success');
-    }
-  }, [order?.status]);
 
   const handleCopy = () => {
     if (order?.code) {
@@ -109,10 +121,15 @@ export function CheckoutPage() {
   if (isExpired) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-12">
-        <div className="bg-cardBg p-8 rounded-3xl border border-gray-800 text-center shadow-2xl" data-testid="expired-state">
+        <div
+          className="bg-cardBg p-8 rounded-3xl border border-gray-800 text-center shadow-2xl"
+          data-testid="expired-state"
+        >
           <div className="text-5xl mb-4">⌛</div>
           <h2 className="text-2xl font-bold text-red-400 mb-2">Payment Expired</h2>
-          <p className="text-gray-300 text-sm mb-6">The payment window has expired. Please try again.</p>
+          <p className="text-gray-300 text-sm mb-6">
+            The payment window has expired. Please try again.
+          </p>
           <button
             onClick={() => navigate('/')}
             className="bg-primary text-gray-950 font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-emerald-400 transition"
@@ -151,8 +168,8 @@ export function CheckoutPage() {
                 toast.type === 'success'
                   ? 'bg-emerald-950/90 border-emerald-500 text-emerald-300'
                   : toast.type === 'error'
-                  ? 'bg-red-950/90 border-red-500 text-red-300'
-                  : 'bg-blue-950/90 border-blue-500 text-blue-300'
+                    ? 'bg-red-950/90 border-red-500 text-red-300'
+                    : 'bg-blue-950/90 border-blue-500 text-blue-300'
               }`}
             >
               <span>{toast.type === 'success' ? '✓' : toast.type === 'error' ? '✕' : 'ℹ'}</span>
@@ -201,7 +218,9 @@ export function CheckoutPage() {
                     scale: isActive ? 1.1 : 1,
                   }}
                   className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${
-                    isCompleted || isActive ? 'text-gray-950 bg-primary' : 'text-gray-400 bg-gray-800'
+                    isCompleted || isActive
+                      ? 'text-gray-950 bg-primary'
+                      : 'text-gray-400 bg-gray-800'
                   }`}
                   aria-current={isActive ? 'step' : undefined}
                 >
@@ -215,7 +234,10 @@ export function CheckoutPage() {
 
         {/* Main Content based on Status */}
         {status === 'delivered' ? (
-          <div className="bg-emerald-500/10 border border-emerald-500/30 p-8 rounded-2xl" data-testid="success-state">
+          <div
+            className="bg-emerald-500/10 border border-emerald-500/30 p-8 rounded-2xl"
+            data-testid="success-state"
+          >
             <m.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
@@ -224,8 +246,12 @@ export function CheckoutPage() {
             >
               🎉
             </m.div>
-            <h2 className="text-2xl font-bold text-emerald-400 mb-2">{t('checkout.statusDelivered')}</h2>
-            <p className="text-gray-300 text-sm mb-6">Your items have been credited successfully.</p>
+            <h2 className="text-2xl font-bold text-emerald-400 mb-2">
+              {t('checkout.statusDelivered')}
+            </h2>
+            <p className="text-gray-300 text-sm mb-6">
+              Your items have been credited successfully.
+            </p>
             <button
               onClick={() => navigate('/')}
               className="bg-primary text-gray-950 font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-emerald-400 transition"
@@ -235,10 +261,15 @@ export function CheckoutPage() {
             </button>
           </div>
         ) : status === 'expired' || status === 'failed' ? (
-          <div className="bg-red-500/10 border border-red-500/30 p-8 rounded-2xl" data-testid="expired-state">
+          <div
+            className="bg-red-500/10 border border-red-500/30 p-8 rounded-2xl"
+            data-testid="expired-state"
+          >
             <div className="text-5xl mb-4">⌛</div>
             <h2 className="text-2xl font-bold text-red-400 mb-2">Payment Expired</h2>
-            <p className="text-gray-300 text-sm mb-6">The payment window has expired. Please try again.</p>
+            <p className="text-gray-300 text-sm mb-6">
+              The payment window has expired. Please try again.
+            </p>
             <button
               onClick={() => navigate(`/games/${order.game.slug}`)}
               className="bg-primary text-gray-950 font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-emerald-400 transition"
