@@ -2,7 +2,7 @@
   {
     "slug": "clash-of-clans",
     "name": "Clash of Clans",
-    "imageUrl": "https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=500",
+    "imageUrl": null,
     "category": "Mobile Games",
     "inputFields": [
       {
@@ -139,7 +139,7 @@
   {
     "slug": "clash-royale",
     "name": "Clash Royale",
-    "imageUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500",
+    "imageUrl": null,
     "category": "Mobile Games",
     "inputFields": [
       {
@@ -252,7 +252,7 @@
   {
     "slug": "mobile-legends",
     "name": "Mobile Legends: Bang Bang",
-    "imageUrl": "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500",
+    "imageUrl": null,
     "category": "Mobile Games",
     "inputFields": [
       {
@@ -372,7 +372,7 @@
   {
     "slug": "free-fire",
     "name": "Free Fire",
-    "imageUrl": "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500",
+    "imageUrl": null,
     "category": "Mobile Games",
     "inputFields": [
       {
@@ -485,7 +485,7 @@
   {
     "slug": "pubg-mobile",
     "name": "PUBG Mobile",
-    "imageUrl": "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=500",
+    "imageUrl": null,
     "category": "Mobile Games",
     "inputFields": [
       {
@@ -598,7 +598,7 @@
   {
     "slug": "genshin-impact",
     "name": "Genshin Impact",
-    "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500",
+    "imageUrl": null,
     "category": "PC & Consoles",
     "inputFields": [
       {
@@ -718,7 +718,7 @@
   {
     "slug": "honor-of-kings",
     "name": "Honor of Kings",
-    "imageUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500",
+    "imageUrl": null,
     "category": "Mobile Games",
     "inputFields": [
       {
@@ -831,7 +831,7 @@
   {
     "slug": "brawl-stars",
     "name": "Brawl Stars",
-    "imageUrl": "https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=500",
+    "imageUrl": null,
     "category": "Mobile Games",
     "inputFields": [
       {
@@ -944,7 +944,7 @@
   {
     "slug": "league-of-legends-wild-rift",
     "name": "League of Legends: Wild Rift",
-    "imageUrl": "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=500",
+    "imageUrl": null,
     "category": "PC & Consoles",
     "inputFields": [
       {
@@ -1057,7 +1057,7 @@
   {
     "slug": "call-of-duty-mobile",
     "name": "Call of Duty: Mobile",
-    "imageUrl": "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=500",
+    "imageUrl": null,
     "category": "Mobile Games",
     "inputFields": [
       {
@@ -1170,7 +1170,7 @@
   {
     "slug": "honkai-star-rail",
     "name": "Honkai: Star Rail",
-    "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500",
+    "imageUrl": null,
     "category": "PC & Consoles",
     "inputFields": [
       {
@@ -1290,7 +1290,7 @@
   {
     "slug": "valorant",
     "name": "Valorant",
-    "imageUrl": "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=500",
+    "imageUrl": null,
     "category": "PC & Consoles",
     "inputFields": [
       {
@@ -1403,7 +1403,7 @@
   {
     "slug": "roblox",
     "name": "Roblox",
-    "imageUrl": "https://images.unsplash.com/photo-1612287233002-b1d2e8b835d7?w=500",
+    "imageUrl": null,
     "category": "PC & Gift Cards",
     "inputFields": [
       {
@@ -1516,7 +1516,7 @@
   {
     "slug": "steam-wallet",
     "name": "Steam Wallet USD",
-    "imageUrl": "https://images.unsplash.com/photo-1612287233002-b1d2e8b835d7?w=500",
+    "imageUrl": null,
     "category": "PC & Gift Cards",
     "inputFields": [
       {
@@ -1629,7 +1629,7 @@
   {
     "slug": "ea-sports-fc-mobile",
     "name": "EA Sports FC Mobile",
-    "imageUrl": "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500",
+    "imageUrl": null,
     "category": "Mobile Games",
     "inputFields": [
       {
@@ -1742,7 +1742,7 @@
   {
     "slug": "ragnarok-origin",
     "name": "Ragnarok Origin",
-    "imageUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500",
+    "imageUrl": null,
     "category": "Mobile Games",
     "inputFields": [
       {

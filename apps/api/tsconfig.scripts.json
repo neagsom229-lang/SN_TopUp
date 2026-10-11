@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["prisma/**/*", "scripts/**/*", "src/**/*"],
+  "compilerOptions": {
+    "noEmit": true
+  }
+}
