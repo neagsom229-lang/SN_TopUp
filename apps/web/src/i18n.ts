@@ -10,8 +10,8 @@ const resources = {
         support: 'Support',
       },
       home: {
-        title: 'Instant Game Top-Up in Cambodia',
-        subtitle: 'Fast, secure & automated top-ups with Bakong KHQR',
+        title: 'Game Top-Up in Cambodia',
+        subtitle: 'Reliable game top-ups with Bakong KHQR',
         searchPlaceholder: 'Search games...',
         selectGame: 'Select Game',
       },
@@ -47,8 +47,8 @@ const resources = {
         support: 'ជំនួយ',
       },
       home: {
-        title: 'បំពេញកាក់ហ្គេមភ្លាមៗនៅកម្ពុชา',
-        subtitle: 'លឿន សុវត្ថិភាព និងស្វ័យប្រវត្តិជាមួយ Bakong KHQR',
+        title: 'បំពេញកាក់ហ្គេមនៅកម្ពុជា',
+        subtitle: 'ការបញ្ចូលទឹកប្រាក់ហ្គេមដែលអាចទុកចិត្តបានជាមួយ Bakong KHQR',
         searchPlaceholder: 'ស្វែងរកហ្គេម...',
         selectGame: 'ជ្រើសរើសហ្គេម',
       },
@@ -62,7 +62,7 @@ const resources = {
         verifiedName: 'ឈ្មោះអ្នកលេង៖',
         buyNow: 'ទិញឥឡូវនេះ ($ {{price}})',
         contactPhone: 'លេខទូរស័ព្ទ / Telegram',
-        promoCode: 'កូដបញ្ចុះតម្លៃ (προαιρετικό)',
+        promoCode: 'កូដបញ្ចុះតម្លៃ',
         apply: 'ដាក់ស្នើ',
       },
       checkout: {

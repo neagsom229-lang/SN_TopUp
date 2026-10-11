@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { domAnimation, LazyMotion, m } from 'framer-motion';
+import { GameCover } from '../components/GameCover';
 
 interface Game {
   id: string;
   slug: string;
   name: string;
-  imageUrl: string;
+  imageUrl?: string;
   category: string;
   startingPriceCents: number;
 }
@@ -22,84 +23,16 @@ export function HomePage() {
     data: games = [],
     isLoading,
     error,
+    refetch,
   } = useQuery<Game[]>({
     queryKey: ['games'],
     queryFn: async () => {
-      try {
-        const res = await fetch('/api/v1/games');
-        if (res.ok) {
-          const json = await res.json();
-          if (json.data && json.data.length > 0) return json.data;
-        }
-      } catch {
-        // Fallback for offline E2E
+      const res = await fetch('/api/v1/games');
+      if (!res.ok) {
+        throw new Error('Failed to fetch games');
       }
-      return [
-        {
-          id: '1',
-          slug: 'mobile-legends',
-          name: 'Mobile Legends: Bang Bang',
-          imageUrl: 'https://via.placeholder.com/150',
-          category: 'mobile',
-          startingPriceCents: 100,
-        },
-        {
-          id: '2',
-          slug: 'pubg-mobile',
-          name: 'PUBG Mobile',
-          imageUrl: 'https://via.placeholder.com/150',
-          category: 'mobile',
-          startingPriceCents: 100,
-        },
-        {
-          id: '3',
-          slug: 'free-fire',
-          name: 'Free Fire',
-          imageUrl: 'https://via.placeholder.com/150',
-          category: 'mobile',
-          startingPriceCents: 100,
-        },
-        {
-          id: '4',
-          slug: 'genshin-impact',
-          name: 'Genshin Impact',
-          imageUrl: 'https://via.placeholder.com/150',
-          category: 'pc',
-          startingPriceCents: 100,
-        },
-        {
-          id: '5',
-          slug: 'valorant',
-          name: 'Valorant',
-          imageUrl: 'https://via.placeholder.com/150',
-          category: 'pc',
-          startingPriceCents: 100,
-        },
-        {
-          id: '6',
-          slug: 'roblox',
-          name: 'Roblox',
-          imageUrl: 'https://via.placeholder.com/150',
-          category: 'pc',
-          startingPriceCents: 100,
-        },
-        {
-          id: '7',
-          slug: 'clash-of-clans',
-          name: 'Clash of Clans',
-          imageUrl: 'https://via.placeholder.com/150',
-          category: 'mobile',
-          startingPriceCents: 100,
-        },
-        {
-          id: '8',
-          slug: 'clash-royale',
-          name: 'Clash Royale',
-          imageUrl: 'https://via.placeholder.com/150',
-          category: 'mobile',
-          startingPriceCents: 100,
-        },
-      ];
+      const json = await res.json();
+      return json.games || json.data || [];
     },
   });
 
@@ -108,15 +41,23 @@ export function HomePage() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }, []);
 
+  const counts = useMemo(() => {
+    const mobile = games.filter((g) => g.category?.toLowerCase().includes('mobile')).length;
+    const pc = games.filter(
+      (g) => g.category?.toLowerCase().includes('pc') || g.category?.toLowerCase().includes('gift'),
+    ).length;
+    return { all: games.length, mobile, pc };
+  }, [games]);
+
   const filteredGames = useMemo(() => {
     return games.filter((g) => {
       const matchesSearch = g.name.toLowerCase().includes(search.toLowerCase());
       if (category === 'mobile')
-        return matchesSearch && g.category.toLowerCase().includes('mobile');
+        return matchesSearch && g.category?.toLowerCase().includes('mobile');
       if (category === 'pc')
         return (
           matchesSearch &&
-          (g.category.toLowerCase().includes('pc') || g.category.toLowerCase().includes('gift'))
+          (g.category?.toLowerCase().includes('pc') || g.category?.toLowerCase().includes('gift'))
         );
       return matchesSearch;
     });
@@ -170,16 +111,19 @@ export function HomePage() {
                   transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                 />
               )}
-              {cat === 'all' && `🎮 All Games (${games.length})`}
-              {cat === 'mobile' && '📱 Mobile Legends & Mobile'}
-              {cat === 'pc' && '💻 PC & Gift Cards'}
+              {cat === 'all' && `🎮 All Games (${counts.all})`}
+              {cat === 'mobile' && `📱 Mobile (${counts.mobile})`}
+              {cat === 'pc' && `💻 PC & Gift Cards (${counts.pc})`}
             </button>
           ))}
         </div>
 
         {/* Loading Skeleton */}
         {isLoading && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+          <div
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"
+            data-testid="loading-skeleton"
+          >
             {Array.from({ length: 12 }).map((_, i) => (
               <div
                 key={i}
@@ -193,22 +137,33 @@ export function HomePage() {
           </div>
         )}
 
-        {/* Error State */}
+        {/* Error State with Retry Button */}
         {error && (
-          <div className="text-center py-20 bg-cardBg rounded-3xl border border-red-500/30 p-8">
+          <div
+            className="text-center py-20 bg-cardBg rounded-3xl border border-red-500/30 p-8"
+            data-testid="error-state"
+          >
             <div className="text-4xl mb-4">⚠️</div>
             <h3 className="text-xl font-bold text-red-400 mb-2">Failed to load games</h3>
-            <p className="text-gray-300 text-sm">
+            <p className="text-gray-300 text-sm mb-6">
               Please check your network connection and try again.
             </p>
+            <button
+              onClick={() => refetch()}
+              className="bg-primary text-gray-950 font-bold px-6 py-2.5 rounded-xl hover:bg-emerald-400 transition"
+              data-testid="retry-btn"
+            >
+              Retry
+            </button>
           </div>
         )}
 
         {/* Game Grid with Staggered Reveal */}
-        {!isLoading && (
+        {!isLoading && !error && (
           <m.div
             layout
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"
+            data-testid="game-grid"
           >
             {filteredGames.map((game, idx) => (
               <GameCard key={game.id} game={game} index={idx} reduceMotion={shouldReduceMotion} />
@@ -265,13 +220,15 @@ function GameCard({
           : `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
       }}
       className="group bg-cardBg rounded-2xl border border-gray-800 p-4 hover:border-primary/50 transition-all duration-200 shadow-xl flex flex-col justify-between relative overflow-hidden"
+      data-testid="game-card"
     >
       <Link to={`/games/${game.slug}`} className="block relative z-10">
         <div className="relative overflow-hidden rounded-xl mb-3 aspect-square bg-gray-900">
-          <img
-            src={game.imageUrl}
-            alt={game.name}
-            className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
+          <GameCover
+            slug={game.slug}
+            name={game.name}
+            category={game.category}
+            className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
           />
         </div>
         <h2
@@ -280,7 +237,7 @@ function GameCard({
         >
           {game.name}
         </h2>
-        <div className="text-xs text-gray-300 mt-1" style={{ color: '#cbd5e1' }}>
+        <div className="text-xs text-gray-200 mt-1" style={{ color: '#e2e8f0' }}>
           From ${((game.startingPriceCents ?? 0) / 100).toFixed(2)}
         </div>
       </Link>

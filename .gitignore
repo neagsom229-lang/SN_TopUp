@@ -42,6 +42,5 @@ prisma/migrations/sqlite/
 
 test-results/
 playwright-report/
-
-test-results/
-playwright-report/
+apps/api/scripts/*.js
+evidence/

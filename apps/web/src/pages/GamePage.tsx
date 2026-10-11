@@ -1,7 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { GameCover } from '../components/GameCover';
 
 interface Product {
   id: string;
@@ -68,6 +69,12 @@ export function GamePage() {
   });
 
   const game: Game = data?.game;
+
+  useEffect(() => {
+    if (game) {
+      document.title = `${game.name} Top-Up - SN Top-Up`;
+    }
+  }, [game]);
 
   const currentProducts = useMemo(() => {
     if (!game) return [];
@@ -150,12 +157,16 @@ export function GamePage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 pb-32">
       <div className="flex items-center gap-6 mb-8 bg-cardBg p-6 rounded-2xl border border-gray-800">
-        <img src={game.imageUrl} alt={game.name} className="w-24 h-24 rounded-xl object-cover" />
+        <div className="w-24 h-24 rounded-xl overflow-hidden shrink-0">
+          <GameCover
+            slug={game.slug}
+            name={game.name}
+            className="w-full h-full object-cover rounded-xl"
+          />
+        </div>
         <div>
           <h1 className="text-3xl font-extrabold mb-2">{game.name}</h1>
-          <p className="text-gray-400 text-sm">
-            Instant Top-Up with Bakong KHQR. Automatic delivery. DEMO catalog prices.
-          </p>
+          <p className="text-gray-400 text-sm">Top-Up with Bakong KHQR. DEMO catalog prices.</p>
         </div>
       </div>
 
