@@ -232,7 +232,7 @@ function GameCard({
           />
         </div>
         <h2
-          className="font-bold text-sm text-white truncate group-hover:text-primary transition"
+          className="font-bold text-sm text-white line-clamp-2 group-hover:text-primary transition"
           style={{ color: '#ffffff' }}
         >
           {game.name}

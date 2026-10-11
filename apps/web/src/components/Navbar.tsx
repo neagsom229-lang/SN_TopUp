@@ -4,6 +4,18 @@ import { useTranslation } from 'react-i18next';
 
 export const Navbar: React.FC = () => {
   const { i18n, t } = useTranslation();
+  const [config, setConfig] = React.useState<{ paymentMode: string; supplierMode: string } | null>(
+    null,
+  );
+
+  React.useEffect(() => {
+    fetch('/api/v1/config')
+      .then((res) => res.json())
+      .then((data) => setConfig(data))
+      .catch(() => {});
+  }, []);
+
+  const isDemo = config?.paymentMode === 'mock' || config?.supplierMode === 'mock';
 
   const toggleLang = () => {
     const newLang = i18n.language === 'en' ? 'km' : 'en';
@@ -22,11 +34,12 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      {import.meta.env.DEV && (
+      {isDemo && (
         <div
           role="region"
           aria-label="Demo mode warning"
           className="bg-amber-500/20 border-b border-amber-500/30 text-amber-300 text-center py-1.5 px-4 text-xs font-bold tracking-wide"
+          data-testid="demo-banner"
         >
           DEMO MODE: payments are simulated
         </div>

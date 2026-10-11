@@ -11,7 +11,7 @@ const resources = {
       },
       home: {
         title: 'Game Top-Up in Cambodia',
-        subtitle: 'Reliable game top-ups with Bakong KHQR',
+        subtitle: 'Secure and transparent game top-ups',
         searchPlaceholder: 'Search games...',
         selectGame: 'Select Game',
       },
@@ -48,7 +48,7 @@ const resources = {
       },
       home: {
         title: 'បំពេញកាក់ហ្គេមនៅកម្ពុជា',
-        subtitle: 'ការបញ្ចូលទឹកប្រាក់ហ្គេមដែលអាចទុកចិត្តបានជាមួយ Bakong KHQR',
+        subtitle: 'ការបញ្ចូលទឹកប្រាក់ហ្គេមមានសុវត្ថិភាពនិងភាពច្បាស់លាស់',
         searchPlaceholder: 'ស្វែងរកហ្គេម...',
         selectGame: 'ជ្រើសរើសហ្គេម',
       },

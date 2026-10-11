@@ -166,7 +166,7 @@ export function GamePage() {
         </div>
         <div>
           <h1 className="text-3xl font-extrabold mb-2">{game.name}</h1>
-          <p className="text-gray-400 text-sm">Top-Up with Bakong KHQR. DEMO catalog prices.</p>
+          <p className="text-gray-400 text-sm">Secure and transparent top-up catalog.</p>
         </div>
       </div>
 

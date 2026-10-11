@@ -49,12 +49,9 @@ export function GameCover({
     >
       <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
       <div className="relative z-10 flex flex-col items-center justify-center p-3 text-center">
-        <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-xl md:text-2xl font-black mb-2 shadow-lg tracking-wider text-white">
+        <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-2xl md:text-3xl font-black shadow-lg tracking-wider text-white">
           {initials}
         </div>
-        <span className="text-xs md:text-sm font-black tracking-tight line-clamp-1 px-1 text-white drop-shadow-md">
-          {name}
-        </span>
       </div>
     </div>
   );
