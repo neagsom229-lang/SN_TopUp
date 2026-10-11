@@ -19,13 +19,16 @@
     "lint": "npm run lint --workspaces --if-present",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md}\" --ignore-path .gitignore",
     "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\" --ignore-path .gitignore",
+    "typecheck": "tsc --noEmit && tsc --project apps/api/tsconfig.scripts.json --noEmit && tsc --project apps/web/tsconfig.json --noEmit",
     "test": "npm --workspace=apps-api test",
-    "test:ci": "npm run lint && npm run format:check && npm test",
+    "test:ci": "npm run lint && npm run format:check && npm run typecheck && npm test",
     "db:migrate:deploy": "dotenv -e apps/api/.env -- npx prisma migrate deploy --schema apps/api/prisma/schema.prisma",
     "db:status": "dotenv -e apps/api/.env -- npx prisma migrate status --schema apps/api/prisma/schema.prisma",
     "db:seed": "dotenv -e apps/api/.env -- npm --workspace=apps-api run prisma:seed",
     "db:verify-rls": "dotenv -e apps/api/.env -- npx tsx apps/api/src/verify-rls.ts",
-    "db:verify-catalog": "dotenv -e apps/api/.env -- npx tsx apps/api/scripts/verify-catalog.ts"
+    "db:verify-catalog": "dotenv -e apps/api/.env -- npx tsx apps/api/scripts/verify-catalog.ts",
+    "db:whoami": "dotenv -e apps/api/.env -- npx tsx apps/api/scripts/db-whoami.ts",
+    "db:ping": "dotenv -e apps/api/.env -- npx tsx apps/api/scripts/db-ping.ts"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

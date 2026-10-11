@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import dotenv from 'dotenv';
 import path from 'path';
 import { checkCatalogData } from '../src/services/catalog-checker.js';
+import { getDbIdentity } from '../src/utils/db-identity.js';
 
 dotenv.config({ path: path.resolve(process.cwd(), 'apps/api/.env') });
 const prisma = new PrismaClient({
@@ -13,6 +14,7 @@ const prisma = new PrismaClient({
 });
 
 async function verifyCatalog() {
+  await getDbIdentity(prisma);
   console.log('Verifying catalog requirements...');
   try {
     const games = await prisma.game.findMany({

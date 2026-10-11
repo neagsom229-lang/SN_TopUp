@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import dotenv from 'dotenv';
 import path from 'path';
+import { getDbIdentity } from './utils/db-identity.js';
 
 // Load apps/api/.env and ensure DIRECT_URL is used without printing it
 dotenv.config({ path: path.resolve(process.cwd(), 'apps/api/.env') });
@@ -14,6 +15,7 @@ const prisma = new PrismaClient({
 });
 
 async function verifyRls() {
+  await getDbIdentity(prisma);
   console.log('Verifying Row Level Security (RLS) status across all public tables...');
   try {
     const results: Array<{
