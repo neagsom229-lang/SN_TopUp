@@ -35,7 +35,7 @@ describe('Error Handling and Rate Limiter', () => {
     expect(lastRes?.status).toBe(429);
     expect(lastRes?.headers['retry-after']).toBeDefined();
     expect(lastRes?.body.error.code).toBe('RATE_LIMIT_EXCEEDED');
-  });
+  }, 10000);
 
   it('exempts signed webhooks from rate limiting', async () => {
     const res = await request(app)

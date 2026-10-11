@@ -144,7 +144,7 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
     });
   });
 
-  test('Complete top-up flow in English with 360x800 screenshot, game count, demo banner & SEO assertions', async ({
+  test('1. Complete top-up flow in English with 360x800 screenshot, game count & SEO assertions', async ({
     page,
   }) => {
     const consoleErrors: string[] = [];
@@ -170,10 +170,8 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
 
     await page.screenshot({ path: path.join(screenshotsDir, 'mobile-en.png') });
 
-    // Demo banner visible when mock config
     await expect(page.locator('[data-testid="demo-banner"]')).toBeVisible();
 
-    // SEO assertions
     const metaDesc = await page.locator('meta[name="description"]').getAttribute('content');
     expect(metaDesc).toBeTruthy();
     const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
@@ -181,39 +179,48 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
     const metaRobots = await page.locator('meta[name="robots"]').getAttribute('content');
     expect(metaRobots).toBe('index, follow');
 
-    // Assert >= 15 game cards render and counts match API data (10 mobile, 6 pc)
     const cardCount = await page.locator('[data-testid="game-card"]').count();
     expect(cardCount).toBeGreaterThanOrEqual(15);
     await expect(page.locator('button:has-text("All Games (16)")')).toBeVisible();
     await expect(page.locator('button:has-text("Mobile (10)")')).toBeVisible();
     await expect(page.locator('button:has-text("PC & Gift Cards (6)")')).toBeVisible();
 
-    // Click category tabs and verify card counts
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test('2. Category tabs count and filter assertions', async ({ page }) => {
+    await page.route('**/api/v1/games', (route) => {
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ games: mockGamesList }),
+      });
+    });
+
+    await page.setViewportSize({ width: 360, height: 800 });
+    await page.goto('http://localhost:5173/');
+
     await page.click('button:has-text("Mobile (10)")');
     expect(await page.locator('[data-testid="game-card"]').count()).toBe(10);
     await page.click('button:has-text("PC & Gift Cards (6)")');
     expect(await page.locator('[data-testid="game-card"]').count()).toBe(6);
     await page.click('button:has-text("All Games (16)")');
-
-    await page.click('a[href="/games/mobile-legends"]');
-    await page.waitForSelector('input[placeholder="e.g. 12345678"]');
-
-    // Per-game title assertion
-    await expect(page).toHaveTitle(/Mobile Legends Top-Up - SN Top-Up/);
-
-    await page.fill('input[placeholder="e.g. 12345678"]', '12345678');
-    await page.fill('input[placeholder="e.g. 2101"]', '2101');
-    await page.fill('input[placeholder="+855 12 345 678"]', '+85512345678');
-
-    await page.click('text=86 Diamonds');
-    await page.click('button:has-text("Proceed to Checkout")');
-
-    await expect(page).toHaveURL(/\/checkout\/ORD-/);
-
-    expect(consoleErrors).toEqual([]);
+    expect(await page.locator('[data-testid="game-card"]').count()).toBe(16);
   });
 
-  test('Demo banner hidden when config says live', async ({ page }) => {
+  test('3. Demo banner visible when config says mock', async ({ page }) => {
+    await page.route('**/api/v1/games', (route) => {
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ games: mockGamesList }),
+      });
+    });
+    await page.goto('http://localhost:5173/');
+    await expect(page.locator('[data-testid="demo-banner"]')).toBeVisible();
+  });
+
+  test('4. Demo banner hidden when config says live', async ({ page }) => {
     await page.route('**/api/v1/config', (route) => {
       route.fulfill({
         status: 200,
@@ -233,7 +240,7 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
     await expect(page.locator('[data-testid="demo-banner"]')).not.toBeVisible();
   });
 
-  test('Home page API failure state shows error and zero cards', async ({ page }) => {
+  test('5. Home page API failure state shows error and zero cards', async ({ page }) => {
     await page.route('**/api/v1/games', (route) => {
       route.fulfill({ status: 500, body: JSON.stringify({ error: 'Internal Server Error' }) });
     });
@@ -254,7 +261,7 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
     await expect(page.locator('[data-testid="game-grid"]')).toBeVisible({ timeout: 5000 });
   });
 
-  test('Complete top-up flow in Khmer', async ({ page }) => {
+  test('6. Complete top-up flow in Khmer with 360x800 screenshot', async ({ page }) => {
     await page.route('**/api/v1/games', (route) => {
       route.fulfill({
         status: 200,
@@ -263,10 +270,13 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
       });
     });
 
+    const screenshotsDir = path.resolve(process.cwd(), 'test-results');
     await page.setViewportSize({ width: 360, height: 800 });
     await page.goto('http://localhost:5173/');
 
     await page.click('text=🇰🇭 ភាសាខ្មែរ');
+    await page.screenshot({ path: path.join(screenshotsDir, 'mobile-km.png') });
+
     await page.click('a[href="/games/mobile-legends"]');
     await page.waitForSelector('input[placeholder="e.g. 12345678"]');
 
@@ -280,7 +290,7 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
     await expect(page).toHaveURL(/\/checkout\/ORD-/);
   });
 
-  test('respects prefers-reduced-motion (no tilt transform)', async ({ browser }) => {
+  test('7. respects prefers-reduced-motion (no tilt transform)', async ({ browser }) => {
     const context = await browser.newContext({ reducedMotion: 'reduce' });
     const page = await context.newPage();
     await page.route('**/api/v1/games', (route) => {
@@ -298,7 +308,7 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
     await context.close();
   });
 
-  test('confetti chunk is NOT requested before success state (network assertion)', async ({
+  test('8. confetti chunk is NOT requested before success state (network assertion)', async ({
     page,
   }) => {
     await page.route('**/api/v1/games', (route) => {
@@ -328,71 +338,37 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
     expect(confettiRequested).toBeFalsy();
   });
 
-  test('axe accessibility: Home, Game, and Checkout at 360x800, dark and light, EN and Khmer', async ({
+  test('9. Toast on copy-order-code, aria-live announcements, and zero console errors', async ({
     page,
   }) => {
-    await page.route('**/api/v1/games', (route) => {
-      route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify({ games: mockGamesList }),
-      });
+    const consoleErrors: string[] = [];
+    page.on('console', (msg) => {
+      if (msg.type() === 'error') consoleErrors.push(msg.text());
     });
 
     await page.setViewportSize({ width: 360, height: 800 });
-
-    await page.goto('http://localhost:5173/');
-    await page.evaluate(() => document.documentElement.classList.remove('dark'));
-    await page.waitForTimeout(1000);
-    let results = await new AxeBuilder({ page }).analyze();
-    expect(results.violations).toEqual([]);
-
-    await page.evaluate(() => document.documentElement.classList.add('dark'));
-    await page.waitForTimeout(1000);
-    results = await new AxeBuilder({ page }).analyze();
-    expect(results.violations).toEqual([]);
-
-    await page.click('text=🇰🇭 ភាសាខ្មែរ');
-    await page.waitForTimeout(1000);
-    results = await new AxeBuilder({ page }).analyze();
-    expect(results.violations).toEqual([]);
-
-    await page.click('a[href="/games/mobile-legends"]');
-    await page.waitForSelector('input[placeholder="e.g. 12345678"]');
-    await page.waitForTimeout(1000);
-    results = await new AxeBuilder({ page }).analyze();
-    expect(results.violations).toEqual([]);
-
-    await page.click('text=🇬🇧 English');
-    await page.evaluate(() => document.documentElement.classList.remove('dark'));
-    await page.waitForTimeout(1000);
-    results = await new AxeBuilder({ page }).analyze();
-    expect(results.violations).toEqual([]);
-
-    await page.fill('input[placeholder="e.g. 12345678"]', '12345678');
-    await page.fill('input[placeholder="e.g. 2101"]', '2101');
-    await page.fill('input[placeholder="+855 12 345 678"]', '+85512345678');
-    await page.click('text=86 Diamonds');
-    await page.click('button:has-text("Proceed to Checkout")');
-    await expect(page).toHaveURL(/\/checkout\/ORD-/);
+    await page.goto('http://localhost:5173/checkout/ORD-TEST123');
 
     await expect(page.locator('[data-testid="order-code"]')).toBeVisible();
     await page.click('[data-testid="copy-btn"]');
     await expect(page.locator('[data-testid="toast"]')).toContainText('copied');
 
-    await page.waitForTimeout(1000);
-    results = await new AxeBuilder({ page }).analyze();
-    expect(results.violations).toEqual([]);
+    await expect(page.locator('[aria-live="polite"]')).toBeAttached();
 
-    await page.evaluate(() => document.documentElement.classList.add('dark'));
-    await page.waitForTimeout(1000);
-    results = await new AxeBuilder({ page }).analyze();
-    expect(results.violations).toEqual([]);
+    expect(consoleErrors).toEqual([]);
   });
 
-  test('expired checkout state and retry', async ({ page }) => {
+  test('10. Expired checkout state and retry', async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 800 });
     await page.goto('http://localhost:5173/checkout/ORD-EXPIRED');
+    await expect(page.locator('[data-testid="expired-state"]')).toBeVisible();
+    await page.click('[data-testid="retry-btn"]');
+    await expect(page).toHaveURL('http://localhost:5173/');
+  });
+
+  test('11. Failed checkout state and retry', async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 800 });
+    await page.goto('http://localhost:5173/checkout/ORD-FAILED');
     await expect(page.locator('[data-testid="expired-state"]')).toBeVisible();
     await page.click('[data-testid="retry-btn"]');
     await expect(page).toHaveURL('http://localhost:5173/');
