@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --border-color: #cbd5e1;
+}
+
+.dark {
+  --bg-color: #0b0f19;
+  --card-bg: #1e293b;
+  --text-main: #ffffff;
+  --text-muted: #cbd5e1;
+  --border-color: #334155;
+}
+
 body {
   font-family: 'Inter', 'Kantumruy Pro', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
 }

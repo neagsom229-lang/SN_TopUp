@@ -37,7 +37,7 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
     await page.waitForSelector('input[placeholder="e.g. 12345678"]');
 
     await page.fill('input[placeholder="e.g. 12345678"]', '87654321');
-    await page.fill('input[placeholder="e.g. 2101"]', '2102');
+    await page.fill('input[placeholder="e.g. 2101"]', '2101');
     await page.fill('input[placeholder="+855 12 345 678"]', '+85512345678');
 
     await page.click('text=172 Diamonds');
@@ -57,9 +57,69 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
     await context.close();
   });
 
-  test('accessibility check with axe', async ({ page }) => {
+  test('axe accessibility: Home (light & dark)', async ({ page }) => {
     await page.goto('http://localhost:5173/');
-    const results = await new AxeBuilder({ page }).analyze();
+    
+    // Light theme
+    await page.evaluate(() => document.documentElement.classList.remove('dark'));
+    let results = await new AxeBuilder({ page }).analyze();
     expect(results.violations).toEqual([]);
+
+    // Dark theme
+    await page.evaluate(() => document.documentElement.classList.add('dark'));
+    results = await new AxeBuilder({ page }).analyze();
+    expect(results.violations).toEqual([]);
+  });
+
+  test('axe accessibility: Game Page (light & dark)', async ({ page }) => {
+    await page.goto('http://localhost:5173/games/mobile-legends');
+    await page.waitForSelector('input[placeholder="e.g. 12345678"]');
+    
+    // Light theme
+    await page.evaluate(() => document.documentElement.classList.remove('dark'));
+    let results = await new AxeBuilder({ page }).analyze();
+    expect(results.violations).toEqual([]);
+
+    // Dark theme
+    await page.evaluate(() => document.documentElement.classList.add('dark'));
+    results = await new AxeBuilder({ page }).analyze();
+    expect(results.violations).toEqual([]);
+  });
+
+  test('checkout features: stepper, countdown, copy, and axe accessibility (light & dark)', async ({ page }) => {
+    await page.goto('http://localhost:5173/');
+    await page.click('a[href="/games/mobile-legends"]');
+    await page.waitForSelector('input[placeholder="e.g. 12345678"]');
+    await page.fill('input[placeholder="e.g. 12345678"]', '12345678');
+    await page.fill('input[placeholder="e.g. 2101"]', '2101');
+    await page.fill('input[placeholder="+855 12 345 678"]', '+85512345678');
+    await page.click('text=86 Diamonds');
+    await page.click('text=Proceed to Checkout');
+    await expect(page).toHaveURL(/\/checkout\/ORD-/);
+
+    // Assert stepper and countdown visible
+    await expect(page.locator('[data-testid="stepper"]')).toBeVisible();
+    await expect(page.locator('[data-testid="countdown-timer"]')).toBeVisible();
+
+    // Check order code and copy button
+    await expect(page.locator('[data-testid="order-code"]')).toBeVisible();
+    await page.click('[data-testid="copy-btn"]');
+    await expect(page.locator('[data-testid="toast"]')).toContainText('copied');
+
+    // Run axe on checkout page in light and dark themes
+    await page.evaluate(() => document.documentElement.classList.remove('dark'));
+    let results = await new AxeBuilder({ page }).analyze();
+    expect(results.violations).toEqual([]);
+
+    await page.evaluate(() => document.documentElement.classList.add('dark'));
+    results = await new AxeBuilder({ page }).analyze();
+    expect(results.violations).toEqual([]);
+  });
+
+  test('expired checkout state and retry', async ({ page }) => {
+    await page.goto('http://localhost:5173/checkout/ORD-EXPIRED');
+    await expect(page.locator('[data-testid="expired-state"]')).toBeVisible();
+    await page.click('[data-testid="retry-btn"]');
+    await expect(page).toHaveURL('http://localhost:5173/');
   });
 });
