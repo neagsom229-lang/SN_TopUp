@@ -48,7 +48,7 @@ model Product {
   id             String   @id @default(uuid())
   gameId         String   @map("game_id")
   name           String
-  supplierSku    String   @map("supplier_sku")
+  supplierSku    String   @unique @map("supplier_sku")
   costPriceCents Int      @map("cost_price_cents")
   sellPriceCents Int      @map("sell_price_cents")
   packageType    String   @default("currency") @map("package_type") // currency | pass | bundle

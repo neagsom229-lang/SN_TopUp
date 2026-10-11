@@ -1,0 +1,324 @@
+[
+  {
+    "slug": "clash-of-clans",
+    "name": "Clash of Clans",
+    "imageUrl": "https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=500",
+    "category": "Mobile Games",
+    "inputFields": [
+      {
+        "key": "playerId",
+        "label": { "en": "Player Tag (#TAG)", "km": "ស្លាកអ្នកលេង (#TAG)" },
+        "type": "text",
+        "required": true,
+        "placeholder": "#2PP0Q8"
+      }
+    ],
+    "products": [
+      { "name": "80 Gems", "supplierSku": "COC_80", "costPriceCents": 80, "sellPriceCents": 99, "packageType": "currency", "badge": "popular", "unitAmount": 80, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 1 },
+      { "name": "500 Gems", "supplierSku": "COC_500", "costPriceCents": 450, "sellPriceCents": 499, "packageType": "currency", "badge": null, "unitAmount": 500, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 2 },
+      { "name": "1200 Gems", "supplierSku": "COC_1200", "costPriceCents": 900, "sellPriceCents": 999, "packageType": "currency", "badge": "best_value", "unitAmount": 1200, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 3 },
+      { "name": "2500 Gems", "supplierSku": "COC_2500", "costPriceCents": 1800, "sellPriceCents": 1999, "packageType": "currency", "badge": null, "unitAmount": 2500, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 4 },
+      { "name": "6500 Gems", "supplierSku": "COC_6500", "costPriceCents": 4500, "sellPriceCents": 4999, "packageType": "currency", "badge": null, "unitAmount": 6500, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 5 },
+      { "name": "14000 Gems", "supplierSku": "COC_14000", "costPriceCents": 9000, "sellPriceCents": 9999, "packageType": "currency", "badge": null, "unitAmount": 14000, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 6 },
+      { "name": "Gold Pass", "supplierSku": "COC_PASS_GOLD", "costPriceCents": 400, "sellPriceCents": 499, "packageType": "pass", "badge": "hot", "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 7 },
+      { "name": "Builder Pass", "supplierSku": "COC_PASS_BUILDER", "costPriceCents": 300, "sellPriceCents": 399, "packageType": "pass", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 8 },
+      { "name": "Heroic Pack", "supplierSku": "COC_BUNDLE_HERO", "costPriceCents": 2000, "sellPriceCents": 2499, "packageType": "bundle", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Bundles", "sortOrder": 9 },
+      { "name": "Town Hall Upgrade Pack", "supplierSku": "COC_BUNDLE_TH", "costPriceCents": 4000, "sellPriceCents": 4999, "packageType": "bundle", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Bundles", "sortOrder": 10 }
+    ]
+  },
+  {
+    "slug": "clash-royale",
+    "name": "Clash Royale",
+    "imageUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500",
+    "category": "Mobile Games",
+    "inputFields": [
+      {
+        "key": "playerId",
+        "label": { "en": "Player Tag (#TAG)", "km": "ស្លាកអ្នកលេង (#TAG)" },
+        "type": "text",
+        "required": true,
+        "placeholder": "#2ABC99"
+      }
+    ],
+    "products": [
+      { "name": "80 Gems", "supplierSku": "CR_80", "costPriceCents": 80, "sellPriceCents": 99, "packageType": "currency", "badge": "popular", "unitAmount": 80, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 1 },
+      { "name": "500 Gems", "supplierSku": "CR_500", "costPriceCents": 450, "sellPriceCents": 499, "packageType": "currency", "badge": null, "unitAmount": 500, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 2 },
+      { "name": "1200 Gems", "supplierSku": "CR_1200", "costPriceCents": 900, "sellPriceCents": 999, "packageType": "currency", "badge": "best_value", "unitAmount": 1200, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 3 },
+      { "name": "2500 Gems", "supplierSku": "CR_2500", "costPriceCents": 1800, "sellPriceCents": 1999, "packageType": "currency", "badge": null, "unitAmount": 2500, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 4 },
+      { "name": "6500 Gems", "supplierSku": "CR_6500", "costPriceCents": 4500, "sellPriceCents": 4999, "packageType": "currency", "badge": null, "unitAmount": 6500, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 5 },
+      { "name": "Pass Royale", "supplierSku": "CR_PASS_ROYALE", "costPriceCents": 400, "sellPriceCents": 499, "packageType": "pass", "badge": "hot", "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 6 },
+      { "name": "Gold Pass Royale", "supplierSku": "CR_PASS_GOLD", "costPriceCents": 900, "sellPriceCents": 999, "packageType": "pass", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 7 },
+      { "name": "Wild Pack", "supplierSku": "CR_BUNDLE_WILD", "costPriceCents": 2000, "sellPriceCents": 2299, "packageType": "bundle", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Bundles", "sortOrder": 8 }
+    ]
+  },
+  {
+    "slug": "mobile-legends",
+    "name": "Mobile Legends: Bang Bang",
+    "imageUrl": "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500",
+    "category": "Mobile Games",
+    "inputFields": [
+      { "key": "playerId", "label": { "en": "Player ID", "km": "អត្តសញ្ញាណអ្នកលេង" }, "type": "text", "required": true, "placeholder": "12345678" },
+      { "key": "serverId", "label": { "en": "Server ID", "km": "លេខ Server" }, "type": "text", "required": true, "placeholder": "2101" }
+    ],
+    "products": [
+      { "name": "86 Diamonds", "supplierSku": "ML_86", "costPriceCents": 85, "sellPriceCents": 99, "packageType": "currency", "badge": "popular", "unitAmount": 86, "unitLabel": "Diamonds", "groupLabel": "Diamonds", "sortOrder": 1 },
+      { "name": "172 Diamonds", "supplierSku": "ML_172", "costPriceCents": 170, "sellPriceCents": 199, "packageType": "currency", "badge": "best_value", "unitAmount": 172, "unitLabel": "Diamonds", "groupLabel": "Diamonds", "sortOrder": 2 },
+      { "name": "257 Diamonds", "supplierSku": "ML_257", "costPriceCents": 250, "sellPriceCents": 299, "packageType": "currency", "badge": null, "unitAmount": 257, "unitLabel": "Diamonds", "groupLabel": "Diamonds", "sortOrder": 3 },
+      { "name": "514 Diamonds", "supplierSku": "ML_514", "costPriceCents": 480, "sellPriceCents": 549, "packageType": "currency", "badge": null, "unitAmount": 514, "unitLabel": "Diamonds", "groupLabel": "Diamonds", "sortOrder": 4 },
+      { "name": "1050 Diamonds", "supplierSku": "ML_1050", "costPriceCents": 950, "sellPriceCents": 1049, "packageType": "currency", "badge": null, "unitAmount": 1050, "unitLabel": "Diamonds", "groupLabel": "Diamonds", "sortOrder": 5 },
+      { "name": "2195 Diamonds", "supplierSku": "ML_2195", "costPriceCents": 1900, "sellPriceCents": 2099, "packageType": "currency", "badge": null, "unitAmount": 2195, "unitLabel": "Diamonds", "groupLabel": "Diamonds", "sortOrder": 6 },
+      { "name": "Starlight Pass", "supplierSku": "ML_STARLIGHT", "costPriceCents": 800, "sellPriceCents": 999, "packageType": "pass", "badge": "hot", "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 7 },
+      { "name": "Twilight Pass", "supplierSku": "ML_TWILIGHT", "costPriceCents": 750, "sellPriceCents": 899, "packageType": "pass", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 8 }
+    ]
+  },
+  {
+    "slug": "free-fire",
+    "name": "Free Fire",
+    "imageUrl": "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500",
+    "category": "Mobile Games",
+    "inputFields": [
+      { "key": "playerId", "label": { "en": "Player ID", "km": "អត្តសញ្ញាណអ្នកលេង" }, "type": "text", "required": true, "placeholder": "123456789" }
+    ],
+    "products": [
+      { "name": "100 Diamonds", "supplierSku": "FF_100", "costPriceCents": 80, "sellPriceCents": 99, "packageType": "currency", "badge": "popular", "unitAmount": 100, "unitLabel": "Diamonds", "groupLabel": "Diamonds", "sortOrder": 1 },
+      { "name": "310 Diamonds", "supplierSku": "FF_310", "costPriceCents": 240, "sellPriceCents": 299, "packageType": "currency", "badge": "best_value", "unitAmount": 310, "unitLabel": "Diamonds", "groupLabel": "Diamonds", "sortOrder": 2 },
+      { "name": "520 Diamonds", "supplierSku": "FF_520", "costPriceCents": 400, "sellPriceCents": 499, "packageType": "currency", "badge": null, "unitAmount": 520, "unitLabel": "Diamonds", "groupLabel": "Diamonds", "sortOrder": 3 },
+      { "name": "1060 Diamonds", "supplierSku": "FF_1060", "costPriceCents": 800, "sellPriceCents": 999, "packageType": "currency", "badge": null, "unitAmount": 1060, "unitLabel": "Diamonds", "groupLabel": "Diamonds", "sortOrder": 4 },
+      { "name": "2200 Diamonds", "supplierSku": "FF_2200", "costPriceCents": 1600, "sellPriceCents": 1999, "packageType": "currency", "badge": null, "unitAmount": 2200, "unitLabel": "Diamonds", "groupLabel": "Diamonds", "sortOrder": 5 },
+      { "name": "5600 Diamonds", "supplierSku": "FF_5600", "costPriceCents": 4000, "sellPriceCents": 4999, "packageType": "currency", "badge": null, "unitAmount": 5600, "unitLabel": "Diamonds", "groupLabel": "Diamonds", "sortOrder": 6 },
+      { "name": "Level Up Pass", "supplierSku": "FF_PASS", "costPriceCents": 150, "sellPriceCents": 199, "packageType": "pass", "badge": "hot", "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 7 },
+      { "name": "Booyah Pass", "supplierSku": "FF_BOOYAH", "costPriceCents": 350, "sellPriceCents": 499, "packageType": "pass", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 8 }
+    ]
+  },
+  {
+    "slug": "pubg-mobile",
+    "name": "PUBG Mobile",
+    "imageUrl": "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=500",
+    "category": "Mobile Games",
+    "inputFields": [
+      { "key": "playerId", "label": { "en": "Character ID", "km": "លេខសម្គាល់តួអង្គ" }, "type": "text", "required": true, "placeholder": "5123456789" }
+    ],
+    "products": [
+      { "name": "60 UC", "supplierSku": "PUBG_60", "costPriceCents": 85, "sellPriceCents": 99, "packageType": "currency", "badge": "popular", "unitAmount": 60, "unitLabel": "UC", "groupLabel": "UC", "sortOrder": 1 },
+      { "name": "325 UC", "supplierSku": "PUBG_325", "costPriceCents": 440, "sellPriceCents": 499, "packageType": "currency", "badge": "best_value", "unitAmount": 325, "unitLabel": "UC", "groupLabel": "UC", "sortOrder": 2 },
+      { "name": "660 UC", "supplierSku": "PUBG_660", "costPriceCents": 880, "sellPriceCents": 999, "packageType": "currency", "badge": null, "unitAmount": 660, "unitLabel": "UC", "groupLabel": "UC", "sortOrder": 3 },
+      { "name": "1800 UC", "supplierSku": "PUBG_1800", "costPriceCents": 2200, "sellPriceCents": 2499, "packageType": "currency", "badge": null, "unitAmount": 1800, "unitLabel": "UC", "groupLabel": "UC", "sortOrder": 4 },
+      { "name": "3850 UC", "supplierSku": "PUBG_3850", "costPriceCents": 4400, "sellPriceCents": 4999, "packageType": "currency", "badge": null, "unitAmount": 3850, "unitLabel": "UC", "groupLabel": "UC", "sortOrder": 5 },
+      { "name": "8100 UC", "supplierSku": "PUBG_8100", "costPriceCents": 8800, "sellPriceCents": 9999, "packageType": "currency", "badge": null, "unitAmount": 8100, "unitLabel": "UC", "groupLabel": "UC", "sortOrder": 6 },
+      { "name": "Royale Pass Elite", "supplierSku": "PUBG_RP", "costPriceCents": 750, "sellPriceCents": 999, "packageType": "pass", "badge": "hot", "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 7 },
+      { "name": "Royale Pass Plus", "supplierSku": "PUBG_RP_PLUS", "costPriceCents": 2000, "sellPriceCents": 2499, "packageType": "pass", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 8 }
+    ]
+  },
+  {
+    "slug": "genshin-impact",
+    "name": "Genshin Impact",
+    "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500",
+    "category": "PC & Consoles",
+    "inputFields": [
+      { "key": "serverId", "label": { "en": "Server", "km": "ស៊ែរវើ" }, "type": "select", "required": true, "placeholder": "os_asia" },
+      { "key": "playerId", "label": { "en": "UID", "km": "លេខ UID" }, "type": "text", "required": true, "placeholder": "812345678" }
+    ],
+    "products": [
+      { "name": "60 Genesis Crystals", "supplierSku": "GI_60", "costPriceCents": 85, "sellPriceCents": 99, "packageType": "currency", "badge": null, "unitAmount": 60, "unitLabel": "Crystals", "groupLabel": "Crystals", "sortOrder": 1 },
+      { "name": "300 Genesis Crystals", "supplierSku": "GI_300", "costPriceCents": 420, "sellPriceCents": 499, "packageType": "currency", "badge": "popular", "unitAmount": 300, "unitLabel": "Crystals", "groupLabel": "Crystals", "sortOrder": 2 },
+      { "name": "980 Genesis Crystals", "supplierSku": "GI_980", "costPriceCents": 1300, "sellPriceCents": 1499, "packageType": "currency", "badge": "best_value", "unitAmount": 980, "unitLabel": "Crystals", "groupLabel": "Crystals", "sortOrder": 3 },
+      { "name": "1980 Genesis Crystals", "supplierSku": "GI_1980", "costPriceCents": 2600, "sellPriceCents": 2999, "packageType": "currency", "badge": null, "unitAmount": 1980, "unitLabel": "Crystals", "groupLabel": "Crystals", "sortOrder": 4 },
+      { "name": "3280 Genesis Crystals", "supplierSku": "GI_3280", "costPriceCents": 4300, "sellPriceCents": 4999, "packageType": "currency", "badge": null, "unitAmount": 3280, "unitLabel": "Crystals", "groupLabel": "Crystals", "sortOrder": 5 },
+      { "name": "6480 Genesis Crystals", "supplierSku": "GI_6480", "costPriceCents": 8500, "sellPriceCents": 9999, "packageType": "currency", "badge": null, "unitAmount": 6480, "unitLabel": "Crystals", "groupLabel": "Crystals", "sortOrder": 6 },
+      { "name": "Blessing of the Welkin Moon", "supplierSku": "GI_WELKIN", "costPriceCents": 400, "sellPriceCents": 499, "packageType": "pass", "badge": "hot", "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 7 },
+      { "name": "Gnostic Hymn", "supplierSku": "GI_BATTLEPASS", "costPriceCents": 800, "sellPriceCents": 999, "packageType": "pass", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 8 }
+    ]
+  },
+  {
+    "slug": "honor-of-kings",
+    "name": "Honor of Kings",
+    "imageUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500",
+    "category": "Mobile Games",
+    "inputFields": [
+      { "key": "playerId", "label": { "en": "Player ID", "km": "អត្តសញ្ញាណអ្នកលេង" }, "type": "text", "required": true, "placeholder": "12345678" }
+    ],
+    "products": [
+      { "name": "80 Tokens", "supplierSku": "HOK_80", "costPriceCents": 80, "sellPriceCents": 99, "packageType": "currency", "badge": "popular", "unitAmount": 80, "unitLabel": "Tokens", "groupLabel": "Tokens", "sortOrder": 1 },
+      { "name": "240 Tokens", "supplierSku": "HOK_240", "costPriceCents": 240, "sellPriceCents": 299, "packageType": "currency", "badge": null, "unitAmount": 240, "unitLabel": "Tokens", "groupLabel": "Tokens", "sortOrder": 2 },
+      { "name": "400 Tokens", "supplierSku": "HOK_400", "costPriceCents": 400, "sellPriceCents": 499, "packageType": "currency", "badge": "best_value", "unitAmount": 400, "unitLabel": "Tokens", "groupLabel": "Tokens", "sortOrder": 3 },
+      { "name": "560 Tokens", "supplierSku": "HOK_560", "costPriceCents": 550, "sellPriceCents": 699, "packageType": "currency", "badge": null, "unitAmount": 560, "unitLabel": "Tokens", "groupLabel": "Tokens", "sortOrder": 4 },
+      { "name": "1200 Tokens", "supplierSku": "HOK_1200", "costPriceCents": 1150, "sellPriceCents": 1399, "packageType": "currency", "badge": null, "unitAmount": 1200, "unitLabel": "Tokens", "groupLabel": "Tokens", "sortOrder": 5 },
+      { "name": "2400 Tokens", "supplierSku": "HOK_2400", "costPriceCents": 2300, "sellPriceCents": 2799, "packageType": "currency", "badge": null, "unitAmount": 2400, "unitLabel": "Tokens", "groupLabel": "Tokens", "sortOrder": 6 },
+      { "name": "Deluxe Battle Pass", "supplierSku": "HOK_PASS", "costPriceCents": 400, "sellPriceCents": 499, "packageType": "pass", "badge": "hot", "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 7 },
+      { "name": "Starter Bundle", "supplierSku": "HOK_BUNDLE", "costPriceCents": 200, "sellPriceCents": 299, "packageType": "bundle", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Bundles", "sortOrder": 8 }
+    ]
+  },
+  {
+    "slug": "brawl-stars",
+    "name": "Brawl Stars",
+    "imageUrl": "https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=500",
+    "category": "Mobile Games",
+    "inputFields": [
+      { "key": "playerId", "label": { "en": "Player Tag", "km": "ស្លាកអ្នកលេង" }, "type": "text", "required": true, "placeholder": "#ABC123" }
+    ],
+    "products": [
+      { "name": "30 Gems", "supplierSku": "BS_30", "costPriceCents": 80, "sellPriceCents": 99, "packageType": "currency", "badge": "popular", "unitAmount": 30, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 1 },
+      { "name": "80 Gems", "supplierSku": "BS_80", "costPriceCents": 210, "sellPriceCents": 249, "packageType": "currency", "badge": null, "unitAmount": 80, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 2 },
+      { "name": "170 Gems", "supplierSku": "BS_170", "costPriceCents": 420, "sellPriceCents": 499, "packageType": "currency", "badge": "best_value", "unitAmount": 170, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 3 },
+      { "name": "360 Gems", "supplierSku": "BS_360", "costPriceCents": 850, "sellPriceCents": 999, "packageType": "currency", "badge": null, "unitAmount": 360, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 4 },
+      { "name": "950 Gems", "supplierSku": "BS_950", "costPriceCents": 2100, "sellPriceCents": 2499, "packageType": "currency", "badge": null, "unitAmount": 950, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 5 },
+      { "name": "2000 Gems", "supplierSku": "BS_2000", "costPriceCents": 4200, "sellPriceCents": 4999, "packageType": "currency", "badge": null, "unitAmount": 2000, "unitLabel": "Gems", "groupLabel": "Gems", "sortOrder": 6 },
+      { "name": "Brawl Pass", "supplierSku": "BS_PASS", "costPriceCents": 580, "sellPriceCents": 699, "packageType": "pass", "badge": "hot", "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 7 },
+      { "name": "Brawl Pass Plus", "supplierSku": "BS_PASS_PLUS", "costPriceCents": 850, "sellPriceCents": 999, "packageType": "pass", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 8 }
+    ]
+  },
+  {
+    "slug": "league-of-legends-wild-rift",
+    "name": "League of Legends: Wild Rift",
+    "imageUrl": "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=500",
+    "category": "PC & Consoles",
+    "inputFields": [
+      { "key": "riotId", "label": { "en": "Riot ID", "km": "Riot ID" }, "type": "text", "required": true, "placeholder": "Player#KH" }
+    ],
+    "products": [
+      { "name": "425 Wild Cores", "supplierSku": "WR_425", "costPriceCents": 420, "sellPriceCents": 499, "packageType": "currency", "badge": "popular", "unitAmount": 425, "unitLabel": "Cores", "groupLabel": "Cores", "sortOrder": 1 },
+      { "name": "1000 Wild Cores", "supplierSku": "WR_1000", "costPriceCents": 950, "sellPriceCents": 1099, "packageType": "currency", "badge": "best_value", "unitAmount": 1000, "unitLabel": "Cores", "groupLabel": "Cores", "sortOrder": 2 },
+      { "name": "1500 Wild Cores", "supplierSku": "WR_1500", "costPriceCents": 1400, "sellPriceCents": 1599, "packageType": "currency", "badge": null, "unitAmount": 1500, "unitLabel": "Cores", "groupLabel": "Cores", "sortOrder": 3 },
+      { "name": "3500 Wild Cores", "supplierSku": "WR_3500", "costPriceCents": 3200, "sellPriceCents": 3699, "packageType": "currency", "badge": null, "unitAmount": 3500, "unitLabel": "Cores", "groupLabel": "Cores", "sortOrder": 4 },
+      { "name": "5000 Wild Cores", "supplierSku": "WR_5000", "costPriceCents": 4500, "sellPriceCents": 4999, "packageType": "currency", "badge": null, "unitAmount": 5000, "unitLabel": "Cores", "groupLabel": "Cores", "sortOrder": 5 },
+      { "name": "Wild Pass", "supplierSku": "WR_PASS", "costPriceCents": 500, "sellPriceCents": 599, "packageType": "pass", "badge": "hot", "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 6 },
+      { "name": "Elite Wild Pass", "supplierSku": "WR_PASS_ELITE", "costPriceCents": 950, "sellPriceCents": 1099, "packageType": "pass", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 7 },
+      { "name": "Champion Bundle", "supplierSku": "WR_BUNDLE", "costPriceCents": 1200, "sellPriceCents": 1499, "packageType": "bundle", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Bundles", "sortOrder": 8 }
+    ]
+  },
+  {
+    "slug": "call-of-duty-mobile",
+    "name": "Call of Duty: Mobile",
+    "imageUrl": "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=500",
+    "category": "Mobile Games",
+    "inputFields": [
+      { "key": "playerId", "label": { "en": "OpenID / UID", "km": "OpenID / UID" }, "type": "text", "required": true, "placeholder": "1234567890" }
+    ],
+    "products": [
+      { "name": "80 CP", "supplierSku": "CODM_80", "costPriceCents": 85, "sellPriceCents": 99, "packageType": "currency", "badge": "popular", "unitAmount": 80, "unitLabel": "CP", "groupLabel": "CP", "sortOrder": 1 },
+      { "name": "420 CP", "supplierSku": "CODM_420", "costPriceCents": 420, "sellPriceCents": 499, "packageType": "currency", "badge": "best_value", "unitAmount": 420, "unitLabel": "CP", "groupLabel": "CP", "sortOrder": 2 },
+      { "name": "880 CP", "supplierSku": "CODM_880", "costPriceCents": 850, "sellPriceCents": 999, "packageType": "currency", "badge": null, "unitAmount": 880, "unitLabel": "CP", "groupLabel": "CP", "sortOrder": 3 },
+      { "name": "2400 CP", "supplierSku": "CODM_2400", "costPriceCents": 2100, "sellPriceCents": 2499, "packageType": "currency", "badge": null, "unitAmount": 2400, "unitLabel": "CP", "groupLabel": "CP", "sortOrder": 4 },
+      { "name": "5000 CP", "supplierSku": "CODM_5000", "costPriceCents": 4200, "sellPriceCents": 4999, "packageType": "currency", "badge": null, "unitAmount": 5000, "unitLabel": "CP", "groupLabel": "CP", "sortOrder": 5 },
+      { "name": "10800 CP", "supplierSku": "CODM_10800", "costPriceCents": 8500, "sellPriceCents": 9999, "packageType": "currency", "badge": null, "unitAmount": 10800, "unitLabel": "CP", "groupLabel": "CP", "sortOrder": 6 },
+      { "name": "Premium Pass", "supplierSku": "CODM_PASS", "costPriceCents": 450, "sellPriceCents": 549, "packageType": "pass", "badge": "hot", "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 7 },
+      { "name": "Premium Pass Plus", "supplierSku": "CODM_PASS_PLUS", "costPriceCents": 1100, "sellPriceCents": 1299, "packageType": "pass", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 8 }
+    ]
+  },
+  {
+    "slug": "honkai-star-rail",
+    "name": "Honkai: Star Rail",
+    "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500",
+    "category": "PC & Consoles",
+    "inputFields": [
+      { "key": "serverId", "label": { "en": "Server", "km": "ស៊ែរវើ" }, "type": "select", "required": true, "placeholder": "os_asia" },
+      { "key": "playerId", "label": { "en": "UID", "km": "លេខ UID" }, "type": "text", "required": true, "placeholder": "800000000" }
+    ],
+    "products": [
+      { "name": "60 Oneiric Shards", "supplierSku": "HSR_60", "costPriceCents": 85, "sellPriceCents": 99, "packageType": "currency", "badge": null, "unitAmount": 60, "unitLabel": "Shards", "groupLabel": "Shards", "sortOrder": 1 },
+      { "name": "300 Oneiric Shards", "supplierSku": "HSR_300", "costPriceCents": 420, "sellPriceCents": 499, "packageType": "currency", "badge": "popular", "unitAmount": 300, "unitLabel": "Shards", "groupLabel": "Shards", "sortOrder": 2 },
+      { "name": "980 Oneiric Shards", "supplierSku": "HSR_980", "costPriceCents": 1300, "sellPriceCents": 1499, "packageType": "currency", "badge": "best_value", "unitAmount": 980, "unitLabel": "Shards", "groupLabel": "Shards", "sortOrder": 3 },
+      { "name": "1980 Oneiric Shards", "supplierSku": "HSR_1980", "costPriceCents": 2600, "sellPriceCents": 2999, "packageType": "currency", "badge": null, "unitAmount": 1980, "unitLabel": "Shards", "groupLabel": "Shards", "sortOrder": 4 },
+      { "name": "3280 Oneiric Shards", "supplierSku": "HSR_3280", "costPriceCents": 4300, "sellPriceCents": 4999, "packageType": "currency", "badge": null, "unitAmount": 3280, "unitLabel": "Shards", "groupLabel": "Shards", "sortOrder": 5 },
+      { "name": "6480 Oneiric Shards", "supplierSku": "HSR_6480", "costPriceCents": 8500, "sellPriceCents": 9999, "packageType": "currency", "badge": null, "unitAmount": 6480, "unitLabel": "Shards", "groupLabel": "Shards", "sortOrder": 6 },
+      { "name": "Supply Pass", "supplierSku": "HSR_PASS", "costPriceCents": 400, "sellPriceCents": 499, "packageType": "pass", "badge": "hot", "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 7 },
+      { "name": "Nameless Glory", "supplierSku": "HSR_BATTLEPASS", "costPriceCents": 800, "sellPriceCents": 999, "packageType": "pass", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 8 }
+    ]
+  },
+  {
+    "slug": "valorant",
+    "name": "Valorant",
+    "imageUrl": "https://images.unsplash.com/photo-1542751110-97427bbecf20?w=500",
+    "category": "PC & Consoles",
+    "inputFields": [
+      { "key": "riotId", "label": { "en": "Riot ID (Name#Tag)", "km": "Riot ID (ឈ្មោះ#တဂ်)" }, "type": "text", "required": true, "placeholder": "Player#8888" }
+    ],
+    "products": [
+      { "name": "475 VP", "supplierSku": "VAL_475", "costPriceCents": 420, "sellPriceCents": 499, "packageType": "currency", "badge": "popular", "unitAmount": 475, "unitLabel": "VP", "groupLabel": "VP", "sortOrder": 1 },
+      { "name": "1000 VP", "supplierSku": "VAL_1000", "costPriceCents": 850, "sellPriceCents": 999, "packageType": "currency", "badge": "best_value", "unitAmount": 1000, "unitLabel": "VP", "groupLabel": "VP", "sortOrder": 2 },
+      { "name": "2050 VP", "supplierSku": "VAL_2050", "costPriceCents": 1700, "sellPriceCents": 1999, "packageType": "currency", "badge": null, "unitAmount": 2050, "unitLabel": "VP", "groupLabel": "VP", "sortOrder": 3 },
+      { "name": "3650 VP", "supplierSku": "VAL_3650", "costPriceCents": 3000, "sellPriceCents": 3499, "packageType": "currency", "badge": null, "unitAmount": 3650, "unitLabel": "VP", "groupLabel": "VP", "sortOrder": 4 },
+      { "name": "5350 VP", "supplierSku": "VAL_5350", "costPriceCents": 4400, "sellPriceCents": 4999, "packageType": "currency", "badge": null, "unitAmount": 5350, "unitLabel": "VP", "groupLabel": "VP", "sortOrder": 5 },
+      { "name": "11000 VP", "supplierSku": "VAL_11000", "costPriceCents": 8800, "sellPriceCents": 9999, "packageType": "currency", "badge": null, "unitAmount": 11000, "unitLabel": "VP", "groupLabel": "VP", "sortOrder": 6 },
+      { "name": "Battle Pass", "supplierSku": "VAL_PASS", "costPriceCents": 850, "sellPriceCents": 999, "packageType": "pass", "badge": "hot", "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 7 },
+      { "name": "Agent Unlock Bundle", "supplierSku": "VAL_BUNDLE", "costPriceCents": 1500, "sellPriceCents": 1799, "packageType": "bundle", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Bundles", "sortOrder": 8 }
+    ]
+  },
+  {
+    "slug": "roblox",
+    "name": "Roblox",
+    "imageUrl": "https://images.unsplash.com/photo-1612287233002-b1d2e8b835d7?w=500",
+    "category": "PC & Gift Cards",
+    "inputFields": [
+      { "key": "username", "label": { "en": "Roblox Username", "km": "ឈ្មោះអ្នកប្រើប្រាស់ Roblox" }, "type": "text", "required": true, "placeholder": "RobloxUser123" }
+    ],
+    "products": [
+      { "name": "400 Robux", "supplierSku": "RBX_400", "costPriceCents": 420, "sellPriceCents": 499, "packageType": "currency", "badge": "popular", "unitAmount": 400, "unitLabel": "Robux", "groupLabel": "Robux", "sortOrder": 1 },
+      { "name": "800 Robux", "supplierSku": "RBX_800", "costPriceCents": 850, "sellPriceCents": 999, "packageType": "currency", "badge": "best_value", "unitAmount": 800, "unitLabel": "Robux", "groupLabel": "Robux", "sortOrder": 2 },
+      { "name": "1700 Robux", "supplierSku": "RBX_1700", "costPriceCents": 1700, "sellPriceCents": 1999, "packageType": "currency", "badge": null, "unitAmount": 1700, "unitLabel": "Robux", "groupLabel": "Robux", "sortOrder": 3 },
+      { "name": "4500 Robux", "supplierSku": "RBX_4500", "costPriceCents": 4200, "sellPriceCents": 4999, "packageType": "currency", "badge": null, "unitAmount": 4500, "unitLabel": "Robux", "groupLabel": "Robux", "sortOrder": 4 },
+      { "name": "10000 Robux", "supplierSku": "RBX_10000", "costPriceCents": 8500, "sellPriceCents": 9999, "packageType": "currency", "badge": null, "unitAmount": 10000, "unitLabel": "Robux", "groupLabel": "Robux", "sortOrder": 5 },
+      { "name": "Premium 450", "supplierSku": "RBX_PREM_450", "costPriceCents": 420, "sellPriceCents": 499, "packageType": "pass", "badge": "hot", "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 6 },
+      { "name": "Premium 1000", "supplierSku": "RBX_PREM_1000", "costPriceCents": 850, "sellPriceCents": 999, "packageType": "pass", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 7 },
+      { "name": "Starter Avatar Bundle", "supplierSku": "RBX_BUNDLE", "costPriceCents": 600, "sellPriceCents": 799, "packageType": "bundle", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Bundles", "sortOrder": 8 }
+    ]
+  },
+  {
+    "slug": "steam-wallet",
+    "name": "Steam Wallet USD",
+    "imageUrl": "https://images.unsplash.com/photo-1612287233002-b1d2e8b835d7?w=500",
+    "category": "PC & Gift Cards",
+    "inputFields": [
+      { "key": "email", "label": { "en": "Email for Code Delivery", "km": "អ៊ីមែលសម្រាប់ទទួលកូដ" }, "type": "email", "required": true, "placeholder": "user@example.com" }
+    ],
+    "products": [
+      { "name": "$5 Steam Wallet", "supplierSku": "STEAM_5", "costPriceCents": 470, "sellPriceCents": 499, "packageType": "currency", "badge": "popular", "unitAmount": 5, "unitLabel": "USD", "groupLabel": "Wallet", "sortOrder": 1 },
+      { "name": "$10 Steam Wallet", "supplierSku": "STEAM_10", "costPriceCents": 940, "sellPriceCents": 999, "packageType": "currency", "badge": "best_value", "unitAmount": 10, "unitLabel": "USD", "groupLabel": "Wallet", "sortOrder": 2 },
+      { "name": "$20 Steam Wallet", "supplierSku": "STEAM_20", "costPriceCents": 1880, "sellPriceCents": 1999, "packageType": "currency", "badge": null, "unitAmount": 20, "unitLabel": "USD", "groupLabel": "Wallet", "sortOrder": 3 },
+      { "name": "$30 Steam Wallet", "supplierSku": "STEAM_30", "costPriceCents": 2820, "sellPriceCents": 2999, "packageType": "currency", "badge": null, "unitAmount": 30, "unitLabel": "USD", "groupLabel": "Wallet", "sortOrder": 4 },
+      { "name": "$50 Steam Wallet", "supplierSku": "STEAM_50", "costPriceCents": 4700, "sellPriceCents": 4999, "packageType": "currency", "badge": null, "unitAmount": 50, "unitLabel": "USD", "groupLabel": "Wallet", "sortOrder": 5 },
+      { "name": "$100 Steam Wallet", "supplierSku": "STEAM_100", "costPriceCents": 9400, "sellPriceCents": 9999, "packageType": "currency", "badge": null, "unitAmount": 100, "unitLabel": "USD", "groupLabel": "Wallet", "sortOrder": 6 },
+      { "name": "Steam Gift Pack S", "supplierSku": "STEAM_PASS_S", "costPriceCents": 1400, "sellPriceCents": 1599, "packageType": "pass", "badge": "hot", "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 7 },
+      { "name": "Steam Mega Bundle", "supplierSku": "STEAM_BUNDLE_MEGA", "costPriceCents": 4500, "sellPriceCents": 4999, "packageType": "bundle", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Bundles", "sortOrder": 8 }
+    ]
+  },
+  {
+    "slug": "ea-sports-fc-mobile",
+    "name": "EA Sports FC Mobile",
+    "imageUrl": "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500",
+    "category": "Mobile Games",
+    "inputFields": [
+      { "key": "playerId", "label": { "en": "User ID", "km": "លេខសម្គាល់អ្នកប្រើប្រាស់" }, "type": "text", "required": true, "placeholder": "123456" }
+    ],
+    "products": [
+      { "name": "100 FC Points", "supplierSku": "FC_100", "costPriceCents": 80, "sellPriceCents": 99, "packageType": "currency", "badge": "popular", "unitAmount": 100, "unitLabel": "Points", "groupLabel": "Points", "sortOrder": 1 },
+      { "name": "500 FC Points", "supplierSku": "FC_500", "costPriceCents": 400, "sellPriceCents": 499, "packageType": "currency", "badge": "best_value", "unitAmount": 500, "unitLabel": "Points", "groupLabel": "Points", "sortOrder": 2 },
+      { "name": "1050 FC Points", "supplierSku": "FC_1050", "costPriceCents": 850, "sellPriceCents": 999, "packageType": "currency", "badge": null, "unitAmount": 1050, "unitLabel": "Points", "groupLabel": "Points", "sortOrder": 3 },
+      { "name": "2200 FC Points", "supplierSku": "FC_2200", "costPriceCents": 1700, "sellPriceCents": 1999, "packageType": "currency", "badge": null, "unitAmount": 2200, "unitLabel": "Points", "groupLabel": "Points", "sortOrder": 4 },
+      { "name": "5750 FC Points", "supplierSku": "FC_5750", "costPriceCents": 4200, "sellPriceCents": 4999, "packageType": "currency", "badge": null, "unitAmount": 5750, "unitLabel": "Points", "groupLabel": "Points", "sortOrder": 5 },
+      { "name": "12000 FC Points", "supplierSku": "FC_12000", "costPriceCents": 8500, "sellPriceCents": 9999, "packageType": "currency", "badge": null, "unitAmount": 12000, "unitLabel": "Points", "groupLabel": "Points", "sortOrder": 6 },
+      { "name": "Star Pass", "supplierSku": "FC_PASS", "costPriceCents": 850, "sellPriceCents": 999, "packageType": "pass", "badge": "hot", "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 7 },
+      { "name": "Ultimate Team Bundle", "supplierSku": "FC_BUNDLE", "costPriceCents": 1500, "sellPriceCents": 1799, "packageType": "bundle", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Bundles", "sortOrder": 8 }
+    ]
+  },
+  {
+    "slug": "ragnarok-origin",
+    "name": "Ragnarok Origin",
+    "imageUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500",
+    "category": "Mobile Games",
+    "inputFields": [
+      { "key": "roleId", "label": { "en": "Role ID", "km": "Role ID" }, "type": "text", "required": true, "placeholder": "12345678" },
+      { "key": "serverId", "label": { "en": "Server", "km": "ស៊ែរវើ" }, "type": "text", "required": true, "placeholder": "RO-01" }
+    ],
+    "products": [
+      { "name": "60 Nyan Berry", "supplierSku": "RO_60", "costPriceCents": 80, "sellPriceCents": 99, "packageType": "currency", "badge": "popular", "unitAmount": 60, "unitLabel": "Berries", "groupLabel": "Berries", "sortOrder": 1 },
+      { "name": "300 Nyan Berry", "supplierSku": "RO_300", "costPriceCents": 400, "sellPriceCents": 499, "packageType": "currency", "badge": "best_value", "unitAmount": 300, "unitLabel": "Berries", "groupLabel": "Berries", "sortOrder": 2 },
+      { "name": "680 Nyan Berry", "supplierSku": "RO_680", "costPriceCents": 850, "sellPriceCents": 999, "packageType": "currency", "badge": null, "unitAmount": 680, "unitLabel": "Berries", "groupLabel": "Berries", "sortOrder": 3 },
+      { "name": "1280 Nyan Berry", "supplierSku": "RO_1280", "costPriceCents": 1700, "sellPriceCents": 1999, "packageType": "currency", "badge": null, "unitAmount": 1280, "unitLabel": "Berries", "groupLabel": "Berries", "sortOrder": 4 },
+      { "name": "3280 Nyan Berry", "supplierSku": "RO_3280", "costPriceCents": 4200, "sellPriceCents": 4999, "packageType": "currency", "badge": null, "unitAmount": 3280, "unitLabel": "Berries", "groupLabel": "Berries", "sortOrder": 5 },
+      { "name": "6480 Nyan Berry", "supplierSku": "RO_6480", "costPriceCents": 8500, "sellPriceCents": 9999, "packageType": "currency", "badge": null, "unitAmount": 6480, "unitLabel": "Berries", "groupLabel": "Berries", "sortOrder": 6 },
+      { "name": "Nyan Pass", "supplierSku": "RO_PASS", "costPriceCents": 850, "sellPriceCents": 999, "packageType": "pass", "badge": "hot", "unitAmount": null, "unitLabel": null, "groupLabel": "Passes", "sortOrder": 7 },
+      { "name": "Adventurer Box", "supplierSku": "RO_BUNDLE", "costPriceCents": 1500, "sellPriceCents": 1799, "packageType": "bundle", "badge": null, "unitAmount": null, "unitLabel": null, "groupLabel": "Bundles", "sortOrder": 8 }
+    ]
+  }
+]
