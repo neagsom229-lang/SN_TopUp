@@ -256,6 +256,15 @@ apiRouter.get('/dev/checkout/:ref', async (req: Request, res: Response) => {
   `);
 });
 
+apiRouter.get('/config', (_req: Request, res: Response) => {
+  res.json({
+    paymentMode:
+      process.env.PAYMENT_PROVIDER === 'mock' || !process.env.PAYMENT_PROVIDER ? 'mock' : 'live',
+    supplierMode:
+      process.env.SUPPLIER_PROVIDER === 'mock' || !process.env.SUPPLIER_PROVIDER ? 'mock' : 'live',
+  });
+});
+
 // Admin endpoints disabled: real Supabase JWT verification middleware not built yet
 apiRouter.all('/admin/*', (_req: Request, res: Response) => {
   res.status(501).json({

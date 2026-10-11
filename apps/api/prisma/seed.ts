@@ -81,6 +81,7 @@ async function main() {
       update: {
         name: game.name,
         imageUrl: game.imageUrl,
+        category: game.category,
         inputFields: game.inputFields,
         active: true,
       },
@@ -88,6 +89,7 @@ async function main() {
         slug: game.slug,
         name: game.name,
         imageUrl: game.imageUrl,
+        category: game.category,
         inputFields: game.inputFields,
         active: true,
         sortOrder: catOrder,
