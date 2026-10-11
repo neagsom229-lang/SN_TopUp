@@ -22,6 +22,14 @@ const mockGamesList = Array.from({ length: 16 }).map((_, i) => ({
 
 test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
   test.beforeEach(async ({ page }) => {
+    await page.route('**/api/v1/config', (route) => {
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ paymentMode: 'mock', supplierMode: 'mock' }),
+      });
+    });
+
     await page.route('**/api/v1/games/mobile-legends', (route) => {
       route.fulfill({
         status: 200,
@@ -136,7 +144,7 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
     });
   });
 
-  test('Complete top-up flow in English with 360x800 screenshot, game count & SEO assertions', async ({
+  test('Complete top-up flow in English with 360x800 screenshot, game count, demo banner & SEO assertions', async ({
     page,
   }) => {
     const consoleErrors: string[] = [];
@@ -162,6 +170,9 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
 
     await page.screenshot({ path: path.join(screenshotsDir, 'mobile-en.png') });
 
+    // Demo banner visible when mock config
+    await expect(page.locator('[data-testid="demo-banner"]')).toBeVisible();
+
     // SEO assertions
     const metaDesc = await page.locator('meta[name="description"]').getAttribute('content');
     expect(metaDesc).toBeTruthy();
@@ -170,10 +181,19 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
     const metaRobots = await page.locator('meta[name="robots"]').getAttribute('content');
     expect(metaRobots).toBe('index, follow');
 
-    // Assert >= 15 game cards render and "All Games (N)" equals API games count (16)
+    // Assert >= 15 game cards render and counts match API data (10 mobile, 6 pc)
     const cardCount = await page.locator('[data-testid="game-card"]').count();
     expect(cardCount).toBeGreaterThanOrEqual(15);
     await expect(page.locator('button:has-text("All Games (16)")')).toBeVisible();
+    await expect(page.locator('button:has-text("Mobile (10)")')).toBeVisible();
+    await expect(page.locator('button:has-text("PC & Gift Cards (6)")')).toBeVisible();
+
+    // Click category tabs and verify card counts
+    await page.click('button:has-text("Mobile (10)")');
+    expect(await page.locator('[data-testid="game-card"]').count()).toBe(10);
+    await page.click('button:has-text("PC & Gift Cards (6)")');
+    expect(await page.locator('[data-testid="game-card"]').count()).toBe(6);
+    await page.click('button:has-text("All Games (16)")');
 
     await page.click('a[href="/games/mobile-legends"]');
     await page.waitForSelector('input[placeholder="e.g. 12345678"]');
@@ -191,6 +211,26 @@ test.describe('SN Top-Up Golden Path E2E (EN & Khmer)', () => {
     await expect(page).toHaveURL(/\/checkout\/ORD-/);
 
     expect(consoleErrors).toEqual([]);
+  });
+
+  test('Demo banner hidden when config says live', async ({ page }) => {
+    await page.route('**/api/v1/config', (route) => {
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ paymentMode: 'live', supplierMode: 'live' }),
+      });
+    });
+    await page.route('**/api/v1/games', (route) => {
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ games: mockGamesList }),
+      });
+    });
+
+    await page.goto('http://localhost:5173/');
+    await expect(page.locator('[data-testid="demo-banner"]')).not.toBeVisible();
   });
 
   test('Home page API failure state shows error and zero cards', async ({ page }) => {
